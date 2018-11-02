@@ -1,0 +1,25 @@
+server:
+  servlet:
+    contextPath: /api
+  port: 80
+
+spring:
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://host.docker.internal:5432/fudge
+    username: postgres
+    password: qwerty
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  output:
+    ansi.enabled: ALWAYS
+
+logging:
+  level:
+    org.springframework.web: DEBUG
+    guru.springframework.controllers: DEBUG
+    org.hibernate: DEBUG

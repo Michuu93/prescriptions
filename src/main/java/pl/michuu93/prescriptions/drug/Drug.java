@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.util.List;
 
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -42,6 +43,7 @@ class Drug {
     @XmlElement(name = "Opakowanie", required = true)
     private String packageSize;
 
-    @XmlElement(name = "Refundacja", required = true)
-    private RefundsList refunds;
+    @XmlElementWrapper(name = "Refundacja")
+    @XmlElement(name = "Poziom", required = true)
+    private List<Refund> refunds;
 }

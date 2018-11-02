@@ -1,10 +1,14 @@
 package pl.michuu93.prescriptions.drug;
 
-import lombok.ToString;
+import lombok.Data;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlValue;
 
-@ToString
+@Data
+@XmlAccessorType(XmlAccessType.FIELD)
 class Refund {
     @XmlAttribute(name = "poziom")
     private String level;

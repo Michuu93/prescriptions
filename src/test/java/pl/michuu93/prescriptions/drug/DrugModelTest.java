@@ -57,11 +57,9 @@ public class DrugModelTest {
                 .isEqualTo("0,875g+0,125g");
         assertThat(drug.getPackageSize())
                 .isEqualTo("14 tabl.");
-//        assertThat(drug.getRefunds())
-//                .extracting(Drug.Refunds::getContent)
-//                .isEqualTo("14 tabl.");
-
-        System.out.println(drug);
+        assertThat(drug.getRefunds())
+                .extracting(Refund::getLevel)
+                .containsOnly("50%", "50%");
     }
 
     private String loadTestXml() throws IOException, URISyntaxException {

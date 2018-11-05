@@ -2,7 +2,7 @@ package pl.michuu93.prescriptions.drug;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-class FloatAdapter extends XmlAdapter<String, Float> {
+public class FloatAdapter extends XmlAdapter<String, Float> {
     @Override
     public Float unmarshal(String floatString) {
         String replacedString = floatString.replace(',', '.');

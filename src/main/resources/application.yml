@@ -11,15 +11,17 @@ spring:
     password: qwerty
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-    generate-ddl: true
     show-sql: true
-    hibernate:
-      ddl-auto: update
+#    generate-ddl: true
+#    hibernate:
+#      ddl-auto: update
   output:
     ansi.enabled: ALWAYS
 
 logging:
   level:
-    org.springframework.web: DEBUG
+    org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
     guru.springframework.controllers: DEBUG
+    org.springframework.web: DEBUG
     org.hibernate: DEBUG
+    pl.michuu93: DEBUG

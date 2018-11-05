@@ -8,6 +8,9 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerA
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import pl.michuu93.prescriptions.drug.model.Drug;
+import pl.michuu93.prescriptions.drug.model.DrugsList;
+import pl.michuu93.prescriptions.drug.model.Refund;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -15,17 +18,16 @@ import javax.xml.bind.Unmarshaller;
 import java.io.IOException;
 import java.io.StringReader;
 import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@SpringBootTest
 @RunWith(SpringRunner.class)
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class, DataSourceTransactionManagerAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
-@SpringBootTest
 public class DrugModelTest {
     @Test
     public void shouldDeserializeXmlToObject() throws IOException, URISyntaxException, JAXBException {
@@ -63,7 +65,7 @@ public class DrugModelTest {
     }
 
     private String loadTestXml() throws IOException, URISyntaxException {
-        URL resource = ClassLoader.getSystemClassLoader().getResource("drugs.xml");
-        return Files.readString(Paths.get(Objects.requireNonNull(resource).toURI()), StandardCharsets.UTF_8);
+        Path path = Paths.get(Objects.requireNonNull(ClassLoader.getSystemClassLoader().getResource("drugs.xml")).toURI());
+        return Files.readString(path);
     }
 }

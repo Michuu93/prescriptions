@@ -1,6 +1,7 @@
-package pl.michuu93.prescriptions.drug;
+package pl.michuu93.prescriptions.drug.model;
 
 import lombok.Data;
+import pl.michuu93.prescriptions.drug.FloatAdapter;
 
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -8,7 +9,7 @@ import java.util.List;
 
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)
-class Drug {
+public class Drug {
     @XmlAttribute(name = "BL7")
     private String id;
 

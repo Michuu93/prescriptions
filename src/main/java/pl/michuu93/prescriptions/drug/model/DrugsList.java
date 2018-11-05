@@ -1,4 +1,4 @@
-package pl.michuu93.prescriptions.drug;
+package pl.michuu93.prescriptions.drug.model;
 
 import lombok.Data;
 
@@ -11,7 +11,7 @@ import java.util.List;
 @Data
 @XmlRootElement(name = "Leki")
 @XmlAccessorType(XmlAccessType.FIELD)
-class DrugsList {
+public class DrugsList {
     @XmlElement(name = "Lek")
     private List<Drug> drugs;
 }

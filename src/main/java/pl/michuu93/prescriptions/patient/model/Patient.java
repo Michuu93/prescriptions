@@ -22,6 +22,6 @@ public class Patient {
     private String passportNumber;
     private String firstName;
     private String lastName;
-    private LocalDate birthDate;
+    private LocalDate birthdate;
     private String address;
 }

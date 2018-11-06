@@ -2,14 +2,17 @@ package pl.michuu93.prescriptions.drug.model;
 
 import lombok.Data;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlValue;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.xml.bind.annotation.*;
 
 @Data
+@Entity
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Refund {
+    @Id
+    @XmlTransient
+    private String id;
     @XmlAttribute(name = "poziom")
     private String level;
     @XmlValue

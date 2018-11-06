@@ -1,9 +1,9 @@
 package pl.michuu93.prescriptions.drug.model;
 
 import lombok.Data;
+import org.hibernate.annotations.ColumnDefault;
 import pl.michuu93.prescriptions.drug.FloatAdapter;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -54,4 +54,8 @@ public class Drug {
     @XmlElementWrapper(name = "Refundacja")
     @XmlElement(name = "Poziom", required = true)
     private List<Refund> refunds;
+
+    @XmlTransient
+    @ColumnDefault("true")
+    private boolean active;
 }

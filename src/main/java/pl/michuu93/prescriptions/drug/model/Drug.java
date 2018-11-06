@@ -3,13 +3,19 @@ package pl.michuu93.prescriptions.drug.model;
 import lombok.Data;
 import pl.michuu93.prescriptions.drug.FloatAdapter;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.List;
 
 @Data
+@Entity
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Drug {
+    @Id
     @XmlAttribute(name = "BL7")
     private String id;
 
@@ -44,6 +50,7 @@ public class Drug {
     @XmlElement(name = "Opakowanie", required = true)
     private String packageSize;
 
+    @OneToMany
     @XmlElementWrapper(name = "Refundacja")
     @XmlElement(name = "Poziom", required = true)
     private List<Refund> refunds;

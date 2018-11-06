@@ -10,10 +10,10 @@ import pl.michuu93.prescriptions.drug.model.DrugsList;
 
 @Slf4j
 @RestController
-@RequestMapping("/drugs")
+@RequestMapping("/drug")
 public class DrugsController {
 
-    @PostMapping("/update")
+    @PostMapping
     public ResponseEntity updateDrugs(@RequestBody DrugsList drugs) {
         log.debug("Received drugs list [size = " + drugs.getDrugs().size() + ']');
         return ResponseEntity.accepted().build();

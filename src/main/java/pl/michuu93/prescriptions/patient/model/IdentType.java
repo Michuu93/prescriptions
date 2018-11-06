@@ -1,4 +1,5 @@
 package pl.michuu93.prescriptions.patient.model;
 
-public class IdentType {
+enum IdentType {
+    PERSONAL_ID, PARENT_ID, PASSPORT_NUMBER
 }

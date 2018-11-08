@@ -1,9 +1,9 @@
 package pl.michuu93.prescriptions.drug.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.xml.bind.annotation.*;
 
 @Data
@@ -11,10 +11,13 @@ import javax.xml.bind.annotation.*;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Refund {
     @Id
+    @JsonIgnore
     @XmlTransient
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     @XmlAttribute(name = "poziom")
     private String level;
     @XmlValue
+    @Column(columnDefinition = "text")
     private String description;
 }

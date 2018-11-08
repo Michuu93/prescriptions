@@ -4,20 +4,21 @@ import lombok.Data;
 import org.hibernate.annotations.ColumnDefault;
 import pl.michuu93.prescriptions.drug.FloatAdapter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.List;
 
 @Data
 @Entity
+@Table(indexes = {
+        @Index(columnList = "name")
+})
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Drug {
     @Id
     @XmlAttribute(name = "BL7")
-    private String id;
+    private String bl7;
 
     @XmlAttribute(name = "EAN")
     private String ean;
@@ -50,12 +51,12 @@ public class Drug {
     @XmlElement(name = "Opakowanie", required = true)
     private String packageSize;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @XmlElementWrapper(name = "Refundacja")
     @XmlElement(name = "Poziom", required = true)
     private List<Refund> refunds;
 
     @XmlTransient
-    @ColumnDefault("true")
-    private boolean active;
+    @ColumnDefault("false")
+    private boolean active = true;
 }

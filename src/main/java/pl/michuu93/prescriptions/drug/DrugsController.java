@@ -1,6 +1,5 @@
 package pl.michuu93.prescriptions.drug;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +9,6 @@ import pl.michuu93.prescriptions.drug.model.DrugsList;
 
 import java.util.Optional;
 
-@Slf4j
 @RestController
 @RequestMapping("/drug")
 public class DrugsController {
@@ -32,9 +30,8 @@ public class DrugsController {
     }
 
     @PostMapping
-    public ResponseEntity updateDrugs(@RequestBody DrugsList drugs) {
-        log.debug("Received drugs list [size = {}]", drugs.getDrugs().size());
-        drugService.updateDrugs(drugs);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<DrugsUpdateResponse> updateDrugs(@RequestBody DrugsList drugs) {
+        DrugsUpdateResponse response = drugService.updateDrugs(drugs.getDrugs());
+        return ResponseEntity.ok(response);
     }
 }

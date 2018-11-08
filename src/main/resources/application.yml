@@ -6,22 +6,21 @@ server:
 spring:
   datasource:
     driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql://host.docker.internal:5432/fudge
+    url: jdbc:postgresql://localhost:5432/db
     username: postgres
     password: qwerty
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-    show-sql: true
-#    generate-ddl: true
-#    hibernate:
-#      ddl-auto: update
+    show-sql: false
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
   output:
     ansi.enabled: ALWAYS
-
 logging:
   level:
     org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
     guru.springframework.controllers: DEBUG
     org.springframework.web: DEBUG
-    org.hibernate: DEBUG
+    org.hibernate: ERROR
     pl.michuu93: DEBUG

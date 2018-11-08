@@ -12,10 +12,16 @@ import pl.michuu93.prescriptions.drug.model.DrugsList;
 @RestController
 @RequestMapping("/drug")
 public class DrugsController {
+    private DrugService drugService;
+
+    public DrugsController(DrugService drugService) {
+        this.drugService = drugService;
+    }
 
     @PostMapping
     public ResponseEntity updateDrugs(@RequestBody DrugsList drugs) {
-        log.debug("Received drugs list [size = " + drugs.getDrugs().size() + ']');
-        return ResponseEntity.accepted().build();
+        log.debug("Received drugs list [size = {}]", drugs.getDrugs().size());
+        drugService.updateDrugs(drugs);
+        return ResponseEntity.ok().build();
     }
 }

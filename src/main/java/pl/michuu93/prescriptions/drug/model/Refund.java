@@ -2,8 +2,7 @@ package pl.michuu93.prescriptions.drug.model;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.xml.bind.annotation.*;
 
 @Data
@@ -12,9 +11,11 @@ import javax.xml.bind.annotation.*;
 public class Refund {
     @Id
     @XmlTransient
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     @XmlAttribute(name = "poziom")
     private String level;
     @XmlValue
+    @Column(columnDefinition = "text")
     private String description;
 }

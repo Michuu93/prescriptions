@@ -5,13 +5,13 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 public class FloatAdapter extends XmlAdapter<String, Float> {
     @Override
     public Float unmarshal(String floatString) {
-        String replacedString = floatString.replace(',', '.');
+        var replacedString = floatString.replace(',', '.');
         return Float.parseFloat(replacedString);
     }
 
     @Override
     public String marshal(Float aFloat) {
-        String floatString = String.valueOf(aFloat);
+        var floatString = String.valueOf(aFloat);
         return floatString.replace('.', ',');
     }
 }

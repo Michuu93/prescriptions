@@ -12,14 +12,14 @@ public class PeselUtilsTest {
 
     @Test
     public void shouldCalculateBirthdate() {
-        LocalDate birthdate = LocalDate.of(1990, 9, 5);
-        LocalDate calculatedBirthdate = PeselUtils.calculateBirthdate(VALID_PESEL);
+        var birthdate = LocalDate.of(1990, 9, 5);
+        var calculatedBirthdate = PeselUtils.calculateBirthdate(VALID_PESEL);
         assertThat(calculatedBirthdate).isEqualTo(birthdate);
     }
 
     @Test
     public void shouldValidateEmail() {
-        boolean isValidPesel = PeselUtils.isValidPesel(VALID_PESEL);
+        var isValidPesel = PeselUtils.isValidPesel(VALID_PESEL);
         assertThat(isValidPesel).isTrue();
 
         isValidPesel = PeselUtils.isValidPesel(INVALID_PESEL);

@@ -27,9 +27,9 @@ public class DrugService {
     }
 
     DrugsUpdateResponse updateDrugs(List<Drug> drugs) {
-        int updatedCount = drugRepository.updateActivityInAll(false);
-        List<Drug> updatedList = drugRepository.saveAll(drugs);
-        DrugsUpdateResponse result = DrugsUpdateResponse.builder()
+        var updatedCount = drugRepository.updateActivityInAll(false);
+        var updatedList = drugRepository.saveAll(drugs);
+        var result = DrugsUpdateResponse.builder()
                 .inactivated(updatedCount)
                 .active(updatedList.size())
                 .build();

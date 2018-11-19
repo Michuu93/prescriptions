@@ -21,7 +21,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.Objects;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -44,25 +43,25 @@ public class PatientServiceTest {
 
     @Test
     public void shouldSaveAndFind() throws IOException, URISyntaxException {
-        Patient patient = upsertExamplePatient("valid_personal_id_birthdate.json");
+        var patient = upsertExamplePatient("valid_personal_id_birthdate.json");
         assertThat(patient).isNotNull();
-        String patientId = upsertExamplePatient("valid_personal_id_birthdate.json").getId();
+        var patientId = upsertExamplePatient("valid_personal_id_birthdate.json").getId();
         assertThat(patientId).isNotNull();
 
-        Optional<Patient> patientFromDb = patientService.findById(patientId);
+        var patientFromDb = patientService.findById(patientId);
         assertThat(patientFromDb).isPresent();
         assertThat(patientFromDb.get()).isEqualTo(patient);
     }
 
     @Test
     public void shouldSaveWithBirthdate() throws IOException, URISyntaxException {
-        Patient patientFromDb = upsertExamplePatient("valid_personal_id_birthdate.json");
+        var patientFromDb = upsertExamplePatient("valid_personal_id_birthdate.json");
         assertThat(patientFromDb.getBirthdate()).isEqualTo(LocalDate.of(1990, 9, 5));
     }
 
     @Test
     public void shouldCalculateBirthdate() throws IOException, URISyntaxException {
-        Patient patientFromDb = upsertExamplePatient("valid_personal_id_no_birthdate.json");
+        var patientFromDb = upsertExamplePatient("valid_personal_id_no_birthdate.json");
         assertThat(patientFromDb.getBirthdate()).isEqualTo(LocalDate.of(1990, 9, 5));
     }
 
@@ -88,13 +87,13 @@ public class PatientServiceTest {
     }
 
     private Patient upsertExamplePatient(String exampleFileName) throws IOException, URISyntaxException {
-        String patientString = loadExampleJson(exampleFileName);
-        Patient patient = objectMapper.readValue(patientString, Patient.class);
+        var patientString = loadExampleJson(exampleFileName);
+        var patient = objectMapper.readValue(patientString, Patient.class);
         return patientService.upsert(patient);
     }
 
     private String loadExampleJson(String fileName) throws URISyntaxException, IOException {
-        Path path = Paths.get(Objects.requireNonNull(ClassLoader.getSystemClassLoader().getResource("patient/" + fileName)).toURI());
+        var path = Paths.get(Objects.requireNonNull(ClassLoader.getSystemClassLoader().getResource("patient/" + fileName)).toURI());
         return Files.readString(path);
     }
 }

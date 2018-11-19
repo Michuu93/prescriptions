@@ -28,14 +28,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class DrugModelTest {
     @Test
     public void shouldDeserializeXmlToObject() throws IOException, URISyntaxException, JAXBException {
-        String exampleXml = loadTestXml();
-        JAXBContext context = JAXBContext.newInstance(DrugsList.class);
-        Unmarshaller marshaller = context.createUnmarshaller();
-
-        DrugsList drugs = (DrugsList) marshaller.unmarshal(new StringReader(exampleXml));
+        var exampleXml = loadTestXml();
+        var context = JAXBContext.newInstance(DrugsList.class);
+        var marshaller = context.createUnmarshaller();
+        var drugs = (DrugsList) marshaller.unmarshal(new StringReader(exampleXml));
         assertThat(drugs.getDrugs()).hasSize(51497);
 
-        Drug drug = drugs.getDrugs().get(2838);
+        var drug = drugs.getDrugs().get(2838);
         assertThat(drug.getEan())
                 .isEqualTo("5909991209483");
         assertThat(drug.isPsychotrope())
@@ -62,7 +61,7 @@ public class DrugModelTest {
     }
 
     private String loadTestXml() throws IOException, URISyntaxException {
-        Path path = Paths.get(Objects.requireNonNull(ClassLoader.getSystemClassLoader().getResource("drugs.xml")).toURI());
+        var path = Paths.get(Objects.requireNonNull(ClassLoader.getSystemClassLoader().getResource("drugs.xml")).toURI());
         return Files.readString(path);
     }
 }

@@ -21,11 +21,11 @@ public class PatientService {
         this.patientRepository = patientRepository;
     }
 
-    public Optional<Patient> findById(String id) {
+    Optional<Patient> findById(String id) {
         return patientRepository.findById(id);
     }
 
-    public Patient upsert(Patient patient) {
+    Patient upsert(Patient patient) {
         if (IdentType.PERSONAL_ID.equals(patient.getIdType())) {
             validatePesel(patient);
             setBirthdate(patient);
@@ -45,11 +45,11 @@ public class PatientService {
 
     private void setBirthdate(Patient patient) {
         if (isNull(patient.getBirthdate())) {
-            LocalDate birthdate = PeselUtils.calculateBirthdate(patient.getId());
+            var birthdate = PeselUtils.calculateBirthdate(patient.getId());
             patient.setBirthdate(birthdate);
         } else {
-            LocalDate birthdate = patient.getBirthdate();
-            LocalDate birthdateFromPesel = PeselUtils.calculateBirthdate(patient.getId());
+            var birthdate = patient.getBirthdate();
+            var birthdateFromPesel = PeselUtils.calculateBirthdate(patient.getId());
             if (!birthdateFromPesel.equals(birthdate)) {
                 throw new BirthdateException("Invalid birthdate");
             }

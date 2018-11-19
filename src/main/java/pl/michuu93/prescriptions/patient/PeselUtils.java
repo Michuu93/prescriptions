@@ -4,9 +4,15 @@ import lombok.experimental.UtilityClass;
 
 import java.time.LocalDate;
 
+import static java.util.Objects.isNull;
+
 @UtilityClass
-class PeselUtils {
+public class PeselUtils {
     boolean isValidPesel(String pesel) {
+        if (isNull(pesel)) {
+            return false;
+        }
+
         int pSize = pesel.length();
         if (pSize != 11) {
             return false;
@@ -26,7 +32,7 @@ class PeselUtils {
         return (control == cSum);
     }
 
-    LocalDate calculateBirthdate(String pesel) {
+    public LocalDate calculateBirthdate(String pesel) {
         int year = getBirthYear(pesel);
         int month = Integer.parseInt(pesel.substring(2, 4));
         int dayOfMonth = Integer.parseInt(pesel.substring(4, 6));

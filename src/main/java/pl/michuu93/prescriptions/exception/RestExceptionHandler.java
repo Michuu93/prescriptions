@@ -41,7 +41,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return buildResponseEntity(apiError);
     }
 
-    @ExceptionHandler(PeselException.class)
+    @ExceptionHandler(PersonalIdException.class)
     protected ResponseEntity<?> handleInvalidPeselException(WebRequest req, Exception ex) {
         logger.error(req.toString(), ex);
         ApiError apiError = ApiError.builder().httpStatus(HttpStatus.BAD_REQUEST).errorCode(ApiErrorCode.INVALID_PESEL).build();

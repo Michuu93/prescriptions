@@ -18,14 +18,14 @@ public class PeselUtils {
             return false;
         }
         int[] weights = {1,3,7,9,1,3,7,9,1,3};
-        int j, control, sum = 0;
+        int j, sum = 0;
         int cSum = Integer.valueOf(pesel.substring(pSize - 1));
         for (int i = 0; i < pSize - 1; i++) {
             char c = pesel.charAt(i);
             j = Integer.valueOf(String.valueOf(c));
             sum += j * weights[i];
         }
-        control = 10 - (sum % 10);
+        int control = 10 - (sum % 10);
         if (control == 10) {
             control = 0;
         }

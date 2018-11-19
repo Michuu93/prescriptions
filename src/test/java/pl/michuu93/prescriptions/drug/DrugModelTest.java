@@ -2,6 +2,10 @@ package pl.michuu93.prescriptions.drug;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
+import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import pl.michuu93.prescriptions.drug.model.Drug;
@@ -21,8 +25,6 @@ import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
-@RunWith(SpringRunner.class)
 public class DrugModelTest {
     @Test
     public void shouldDeserializeXmlToObject() throws IOException, URISyntaxException, JAXBException {

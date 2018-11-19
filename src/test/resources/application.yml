@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    platform: h2
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:db;MODE=PostgreSQL
+    username: postgres
+    password: qwerty
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+    generate-ddl: true
+    hibernate:
+      ddl-auto: none
+  output:
+    ansi.enabled: ALWAYS

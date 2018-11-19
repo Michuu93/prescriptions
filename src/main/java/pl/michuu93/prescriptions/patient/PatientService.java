@@ -2,7 +2,7 @@ package pl.michuu93.prescriptions.patient;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import pl.michuu93.prescriptions.exception.PeselException;
+import pl.michuu93.prescriptions.exception.PersonalIdException;
 import pl.michuu93.prescriptions.exception.BirthdateException;
 import pl.michuu93.prescriptions.patient.model.IdentType;
 import pl.michuu93.prescriptions.patient.model.Patient;
@@ -32,14 +32,14 @@ public class PatientService {
         }
 
         if (isNull(patient.getBirthdate())) {
-            throw new BirthdateException("No birth date");
+            throw new BirthdateException("No birthdate");
         }
         return patientRepository.saveAndFlush(patient);
     }
 
     private void validatePesel(Patient patient) {
         if (!PeselUtils.isValidPesel(patient.getId())) {
-            throw new PeselException("Invalid pesel");
+            throw new PersonalIdException("Invalid personal id");
         }
     }
 
@@ -51,7 +51,7 @@ public class PatientService {
             LocalDate birthdate = patient.getBirthdate();
             LocalDate birthdateFromPesel = PeselUtils.calculateBirthdate(patient.getId());
             if (!birthdateFromPesel.equals(birthdate)) {
-                throw new BirthdateException("Invalid birth date");
+                throw new BirthdateException("Invalid birthdate");
             }
         }
     }

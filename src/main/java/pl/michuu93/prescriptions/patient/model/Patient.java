@@ -1,25 +1,22 @@
 package pl.michuu93.prescriptions.patient.model;
 
-import lombok.Builder;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import java.time.LocalDate;
-import java.util.UUID;
 
 @Data
-@Builder
 @Entity
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Patient {
     @Id
-    @Builder.Default()
-    private String id = UUID.randomUUID().toString();
-    @Builder.Default
-    private IdentType identType = IdentType.PERSONAL_ID;
-    private String personalId;
-    private String parentId;
-    private String passportNumber;
+    private String id;
+    @Enumerated(EnumType.STRING)
+    private IdentType idType = IdentType.PERSONAL_ID;
     private String firstName;
     private String lastName;
     private LocalDate birthdate;

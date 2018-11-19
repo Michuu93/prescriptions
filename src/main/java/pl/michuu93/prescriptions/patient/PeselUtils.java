@@ -4,29 +4,35 @@ import lombok.experimental.UtilityClass;
 
 import java.time.LocalDate;
 
+import static java.util.Objects.isNull;
+
 @UtilityClass
-class PeselUtils {
+public class PeselUtils {
     boolean isValidPesel(String pesel) {
+        if (isNull(pesel)) {
+            return false;
+        }
+
         int pSize = pesel.length();
         if (pSize != 11) {
             return false;
         }
         int[] weights = {1,3,7,9,1,3,7,9,1,3};
-        int j, control, sum = 0;
+        int j, sum = 0;
         int cSum = Integer.valueOf(pesel.substring(pSize - 1));
         for (int i = 0; i < pSize - 1; i++) {
             char c = pesel.charAt(i);
             j = Integer.valueOf(String.valueOf(c));
             sum += j * weights[i];
         }
-        control = 10 - (sum % 10);
+        int control = 10 - (sum % 10);
         if (control == 10) {
             control = 0;
         }
         return (control == cSum);
     }
 
-    LocalDate calculateBirthdate(String pesel) {
+    public LocalDate calculateBirthdate(String pesel) {
         int year = getBirthYear(pesel);
         int month = Integer.parseInt(pesel.substring(2, 4));
         int dayOfMonth = Integer.parseInt(pesel.substring(4, 6));

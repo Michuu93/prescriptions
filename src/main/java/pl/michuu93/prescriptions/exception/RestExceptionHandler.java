@@ -41,10 +41,24 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return buildResponseEntity(apiError);
     }
 
+    @ExceptionHandler(PersonalIdException.class)
+    protected ResponseEntity<?> handleInvalidPeselException(WebRequest req, Exception ex) {
+        logger.error(req.toString(), ex);
+        ApiError apiError = ApiError.builder().httpStatus(HttpStatus.BAD_REQUEST).errorCode(ApiErrorCode.INVALID_PESEL).build();
+        return buildResponseEntity(apiError);
+    }
+
+    @ExceptionHandler(BirthdateException.class)
+    protected ResponseEntity<?> handleNoBirthdateException(WebRequest req, Exception ex) {
+        logger.error(req.toString(), ex);
+        ApiError apiError = ApiError.builder().httpStatus(HttpStatus.BAD_REQUEST).errorCode(ApiErrorCode.INVALID_BIRTHDATE).build();
+        return buildResponseEntity(apiError);
+    }
+
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         logger.error(request.toString(), ex);
-        ApiError apiError = ApiError.builder().httpStatus(HttpStatus.BAD_REQUEST).errorCode(ApiErrorCode.INVALID_XML).build();
+        ApiError apiError = ApiError.builder().httpStatus(HttpStatus.BAD_REQUEST).errorCode(ApiErrorCode.INVALID_XML_JSON).build();
         return (ResponseEntity<Object>) buildResponseEntity(apiError);
     }
 

@@ -2,15 +2,12 @@ package pl.michuu93.prescriptions.patient;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.michuu93.prescriptions.patient.model.Patient;
 
 @Slf4j
 @RestController
-@RequestMapping("/patient")
+@RequestMapping("/patients")
 public class PatientController {
     private PatientService patientService;
 
@@ -18,9 +15,16 @@ public class PatientController {
         this.patientService = patientService;
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Patient> getPatient(@PathVariable String id) {
+        return patientService.findById(id)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
     @PostMapping
     public ResponseEntity<Patient> upsertPatient(@RequestBody Patient patient) {
-        Patient result = patientService.upsertPatient(patient);
+        Patient result = patientService.upsert(patient);
         return ResponseEntity.ok(result);
     }
 }

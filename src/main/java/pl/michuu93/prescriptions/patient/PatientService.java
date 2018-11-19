@@ -8,6 +8,7 @@ import pl.michuu93.prescriptions.patient.model.IdentType;
 import pl.michuu93.prescriptions.patient.model.Patient;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 import static java.util.Objects.isNull;
 
@@ -20,7 +21,11 @@ public class PatientService {
         this.patientRepository = patientRepository;
     }
 
-    public Patient upsertPatient(Patient patient) {
+    public Optional<Patient> findById(String id) {
+        return patientRepository.findById(id);
+    }
+
+    public Patient upsert(Patient patient) {
         if (IdentType.PERSONAL_ID.equals(patient.getIdType())) {
             validatePesel(patient);
             setBirthdate(patient);

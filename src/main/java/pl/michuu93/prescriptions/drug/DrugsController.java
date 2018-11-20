@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import pl.michuu93.prescriptions.drug.model.Drug;
 import pl.michuu93.prescriptions.drug.model.DrugsList;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/drugs")
 public class DrugsController {
@@ -23,13 +25,13 @@ public class DrugsController {
 
     @GetMapping("/{bl7}")
     public ResponseEntity<Drug> getDrugByBl7(@PathVariable String bl7) {
-        var optionalMovie = drugService.getDrugByBl7(bl7);
+        Optional<Drug> optionalMovie = drugService.getDrugByBl7(bl7);
         return optionalMovie.isPresent() ? ResponseEntity.ok(optionalMovie.get()) : ResponseEntity.notFound().build();
     }
 
     @PostMapping
     public ResponseEntity<DrugsUpdateResponse> updateDrugs(@RequestBody DrugsList drugs) {
-        var response = drugService.updateDrugs(drugs.getDrugs());
+        DrugsUpdateResponse response = drugService.updateDrugs(drugs.getDrugs());
         return ResponseEntity.ok(response);
     }
 }

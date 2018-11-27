@@ -10,23 +10,21 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import pl.michuu93.prescriptions.AbstractTest;
 import pl.michuu93.prescriptions.exception.BirthdateException;
 import pl.michuu93.prescriptions.exception.PersonalIdException;
 import pl.michuu93.prescriptions.patient.model.Patient;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.util.Objects;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class PatientServiceTest {
+public class PatientServiceTest extends AbstractTest {
     @Rule
     public ExpectedException exceptionRule = ExpectedException.none();
 
@@ -87,13 +85,8 @@ public class PatientServiceTest {
     }
 
     private Patient upsertExamplePatient(String exampleFileName) throws IOException, URISyntaxException {
-        String patientString = loadExampleJson(exampleFileName);
+        String patientString = loadExample("patient/" + exampleFileName);
         Patient patient = objectMapper.readValue(patientString, Patient.class);
         return patientService.upsert(patient);
-    }
-
-    private String loadExampleJson(String fileName) throws URISyntaxException, IOException {
-        var path = Paths.get(Objects.requireNonNull(ClassLoader.getSystemClassLoader().getResource("patient/" + fileName)).toURI());
-        return Files.readString(path);
     }
 }

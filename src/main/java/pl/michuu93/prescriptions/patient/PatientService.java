@@ -45,11 +45,11 @@ public class PatientService {
 
     private void setBirthdate(Patient patient) {
         if (isNull(patient.getBirthdate())) {
-            var birthdate = PeselUtils.calculateBirthdate(patient.getId());
+            LocalDate birthdate = PeselUtils.calculateBirthdate(patient.getId());
             patient.setBirthdate(birthdate);
         } else {
-            var birthdate = patient.getBirthdate();
-            var birthdateFromPesel = PeselUtils.calculateBirthdate(patient.getId());
+            LocalDate birthdate = patient.getBirthdate();
+            LocalDate birthdateFromPesel = PeselUtils.calculateBirthdate(patient.getId());
             if (!birthdateFromPesel.equals(birthdate)) {
                 throw new BirthdateException("Invalid birthdate");
             }

@@ -24,7 +24,7 @@ public class PatientController {
 
     @PostMapping
     public ResponseEntity<Patient> upsertPatient(@RequestBody Patient patient) {
-        var result = patientService.upsert(patient);
+        Patient result = patientService.upsert(patient);
         return ResponseEntity.ok(result);
     }
 }

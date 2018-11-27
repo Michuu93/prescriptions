@@ -55,6 +55,13 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return buildResponseEntity(apiError);
     }
 
+    @ExceptionHandler(DoctorException.class)
+    protected ResponseEntity<?> handleNoLicenseException(WebRequest req, Exception ex) {
+        logger.error(req.toString(), ex);
+        var apiError = ApiError.builder().httpStatus(HttpStatus.BAD_REQUEST).errorCode(ApiErrorCode.INVALID_LICENSE).build();
+        return buildResponseEntity(apiError);
+    }
+
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         logger.error(request.toString(), ex);

@@ -1,40 +1,29 @@
 package pl.michuu93.prescriptions.drug;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
-import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import pl.michuu93.prescriptions.AbstractTest;
 import pl.michuu93.prescriptions.drug.model.Drug;
 import pl.michuu93.prescriptions.drug.model.DrugsList;
 import pl.michuu93.prescriptions.drug.model.Refund;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
 import java.io.IOException;
 import java.io.StringReader;
 import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class DrugModelTest {
+public class DrugModelTest extends AbstractTest {
     @Test
     public void shouldDeserializeXmlToObject() throws IOException, URISyntaxException, JAXBException {
-        var exampleXml = loadTestXml();
+        String exampleXml = loadExample("drugs.xml");
         var context = JAXBContext.newInstance(DrugsList.class);
         var marshaller = context.createUnmarshaller();
-        var drugs = (DrugsList) marshaller.unmarshal(new StringReader(exampleXml));
+        DrugsList drugs = (DrugsList) marshaller.unmarshal(new StringReader(exampleXml));
         assertThat(drugs.getDrugs()).hasSize(51497);
 
-        var drug = drugs.getDrugs().get(2838);
+        Drug drug = drugs.getDrugs().get(2838);
         assertThat(drug.getEan())
                 .isEqualTo("5909991209483");
         assertThat(drug.isPsychotrope())
@@ -58,10 +47,5 @@ public class DrugModelTest {
         assertThat(drug.getRefunds())
                 .extracting(Refund::getLevel)
                 .containsOnly("50%", "50%");
-    }
-
-    private String loadTestXml() throws IOException, URISyntaxException {
-        var path = Paths.get(Objects.requireNonNull(ClassLoader.getSystemClassLoader().getResource("drugs.xml")).toURI());
-        return Files.readString(path);
     }
 }

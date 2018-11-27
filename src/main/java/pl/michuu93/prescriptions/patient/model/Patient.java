@@ -21,4 +21,5 @@ public class Patient {
     private String lastName;
     private LocalDate birthdate;
     private String address;
+    private String nfz;
 }

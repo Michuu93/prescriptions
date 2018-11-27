@@ -10,23 +10,21 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import pl.michuu93.prescriptions.AbstractTest;
 import pl.michuu93.prescriptions.exception.BirthdateException;
 import pl.michuu93.prescriptions.exception.PersonalIdException;
 import pl.michuu93.prescriptions.patient.model.Patient;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.util.Objects;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class PatientServiceTest {
+public class PatientServiceTest extends AbstractTest {
     @Rule
     public ExpectedException exceptionRule = ExpectedException.none();
 
@@ -43,25 +41,25 @@ public class PatientServiceTest {
 
     @Test
     public void shouldSaveAndFind() throws IOException, URISyntaxException {
-        var patient = upsertExamplePatient("valid_personal_id_birthdate.json");
+        Patient patient = upsertExamplePatient("valid_personal_id_birthdate.json");
         assertThat(patient).isNotNull();
-        var patientId = upsertExamplePatient("valid_personal_id_birthdate.json").getId();
+        String patientId = upsertExamplePatient("valid_personal_id_birthdate.json").getId();
         assertThat(patientId).isNotNull();
 
-        var patientFromDb = patientService.findById(patientId);
+        Optional<Patient> patientFromDb = patientService.findById(patientId);
         assertThat(patientFromDb).isPresent();
         assertThat(patientFromDb.get()).isEqualTo(patient);
     }
 
     @Test
     public void shouldSaveWithBirthdate() throws IOException, URISyntaxException {
-        var patientFromDb = upsertExamplePatient("valid_personal_id_birthdate.json");
+        Patient patientFromDb = upsertExamplePatient("valid_personal_id_birthdate.json");
         assertThat(patientFromDb.getBirthdate()).isEqualTo(LocalDate.of(1990, 9, 5));
     }
 
     @Test
     public void shouldCalculateBirthdate() throws IOException, URISyntaxException {
-        var patientFromDb = upsertExamplePatient("valid_personal_id_no_birthdate.json");
+        Patient patientFromDb = upsertExamplePatient("valid_personal_id_no_birthdate.json");
         assertThat(patientFromDb.getBirthdate()).isEqualTo(LocalDate.of(1990, 9, 5));
     }
 
@@ -87,13 +85,8 @@ public class PatientServiceTest {
     }
 
     private Patient upsertExamplePatient(String exampleFileName) throws IOException, URISyntaxException {
-        var patientString = loadExampleJson(exampleFileName);
-        var patient = objectMapper.readValue(patientString, Patient.class);
+        String patientString = loadExample("patient/" + exampleFileName);
+        Patient patient = objectMapper.readValue(patientString, Patient.class);
         return patientService.upsert(patient);
-    }
-
-    private String loadExampleJson(String fileName) throws URISyntaxException, IOException {
-        var path = Paths.get(Objects.requireNonNull(ClassLoader.getSystemClassLoader().getResource("patient/" + fileName)).toURI());
-        return Files.readString(path);
     }
 }

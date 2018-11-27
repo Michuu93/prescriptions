@@ -14,8 +14,9 @@ public class Prescription {
     private String id;
     @ManyToOne(targetEntity = Patient.class)
     private Patient patient;
+    @ManyToOne(targetEntity = OfficeData.class)
     private OfficeData officeData;
-    private PrescriptionNumber prescriptionNumber;
+    private String prescriptionNumber;
     @Enumerated(EnumType.STRING)
     private PrescriptionPermissions additionalPermissions = PrescriptionPermissions.X;
 }

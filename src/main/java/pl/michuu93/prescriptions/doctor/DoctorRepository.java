@@ -1,8 +1,8 @@
-package pl.michuu93.prescriptions.office;
+package pl.michuu93.prescriptions.doctor;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface OfficeRepository extends JpaRepository<OfficeData, String> {
+public interface DoctorRepository extends JpaRepository<Doctor, String> {
 }

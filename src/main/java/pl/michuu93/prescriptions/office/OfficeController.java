@@ -4,6 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Objects;
+
 @Slf4j
 @RestController
 @RequestMapping("/office")
@@ -17,7 +19,7 @@ public class OfficeController {
     @GetMapping
     public ResponseEntity<OfficeData> getOfficeData() {
         OfficeData officeData = officeService.getOfficeData();
-        return ResponseEntity.ok(officeData);
+        return Objects.nonNull(officeData) ? ResponseEntity.ok(officeData) : ResponseEntity.notFound().build();
     }
 
     @PostMapping

@@ -16,7 +16,7 @@ public class OfficeService {
 
     OfficeData getOfficeData() {
         List<OfficeData> officeData = officeRepository.findAll();
-        return officeData.get(0);
+        return officeData.isEmpty() ? null : officeData.get(0);
     }
 
     OfficeData upsertOfficeData(OfficeData officeData) {

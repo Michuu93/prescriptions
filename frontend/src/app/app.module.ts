@@ -7,26 +7,25 @@ import {
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,
-    MatIconModule,
-    MatPaginatorModule, MatProgressSpinnerModule, MatTableModule,
+    MatIconModule, MatMenuModule,
+    MatPaginatorModule, MatProgressSpinnerModule, MatSnackBarModule, MatTableModule,
     MatToolbarModule
 } from "@angular/material";
 import {HeaderComponent} from './header/header.component';
 import {HttpClientModule} from "@angular/common/http";
-import { DrugListComponent } from './drugs/drug-list/drug-list.component';
+import { DrugsListComponent } from './drugs/drugs-list/drugs-list.component';
 import { DrugsComponent } from './drugs/drugs.component';
 import { PrescriptionsComponent } from './prescriptions/prescriptions.component';
 import {RoutingModule} from "./routing/routing.module";
 import { OfficeComponent } from './office/office.component';
 import { PatientsComponent } from './patients/patients.component';
-
-
+import {FileUploadModule} from 'ng2-file-upload';
 
 @NgModule({
     declarations: [
         RootComponent,
         HeaderComponent,
-        DrugListComponent,
+        DrugsListComponent,
         DrugsComponent,
         PrescriptionsComponent,
         OfficeComponent,
@@ -44,7 +43,10 @@ import { PatientsComponent } from './patients/patients.component';
         MatFormFieldModule,
         HttpClientModule,
         MatTableModule,
-        MatProgressSpinnerModule
+        MatProgressSpinnerModule,
+        MatMenuModule,
+        MatSnackBarModule,
+        FileUploadModule
     ],
     providers: [],
     bootstrap: [RootComponent]

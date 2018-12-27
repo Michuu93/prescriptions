@@ -2,6 +2,13 @@ table {
     width: 100%;
 }
 
+tr.mat-row:hover {
+    background: rgb(63, 81, 181);
+    .mat-cell {
+        color: white;
+    }
+}
+
 .loader {
     position: absolute;
     top: 0;

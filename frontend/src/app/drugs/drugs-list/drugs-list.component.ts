@@ -5,12 +5,12 @@ import {MatTableDataSource} from "@angular/material";
 
 @Component({
     selector: 'app-drug-list',
-    templateUrl: './drug-list.component.html',
-    styleUrls: ['./drug-list.component.css'],
+    templateUrl: './drugs-list.component.html',
+    styleUrls: ['./drugs-list.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [DrugsService]
 })
-export class DrugListComponent implements OnInit {
+export class DrugsListComponent implements OnInit {
     displayedColumns: string[] = ['bl7', 'ean', 'name', 'internationalName', 'price'];
     dataSource = new MatTableDataSource<Drug>();
 

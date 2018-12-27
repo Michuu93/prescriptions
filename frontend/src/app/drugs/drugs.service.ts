@@ -1,5 +1,5 @@
 import {Observable} from "rxjs";
-import {DrugPage} from "./model/drug-page.model";
+import {DrugPage} from "./model/drugs-page.model";
 import {HttpClient} from "@angular/common/http";
 import {Injectable} from "@angular/core";
 

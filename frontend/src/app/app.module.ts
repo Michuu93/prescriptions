@@ -1,7 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
-import {AppRoutingModule} from './app-routing.module';
 import {RootComponent} from './root/root.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {
@@ -16,17 +15,26 @@ import {HeaderComponent} from './header/header.component';
 import {HttpClientModule} from "@angular/common/http";
 import { DrugListComponent } from './drugs/drug-list/drug-list.component';
 import { DrugsComponent } from './drugs/drugs.component';
+import { PrescriptionsComponent } from './prescriptions/prescriptions.component';
+import {RoutingModule} from "./routing/routing.module";
+import { OfficeComponent } from './office/office.component';
+import { PatientsComponent } from './patients/patients.component';
+
+
 
 @NgModule({
     declarations: [
         RootComponent,
         HeaderComponent,
         DrugListComponent,
-        DrugsComponent
+        DrugsComponent,
+        PrescriptionsComponent,
+        OfficeComponent,
+        PatientsComponent
     ],
     imports: [
         BrowserModule,
-        AppRoutingModule,
+        RoutingModule,
         BrowserAnimationsModule,
         MatToolbarModule,
         MatIconModule,

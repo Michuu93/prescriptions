@@ -1,0 +1,15 @@
+table {
+    width: 100%;
+}
+
+.loader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 56px;
+    right: 0;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

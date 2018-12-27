@@ -4,16 +4,25 @@ import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {RootComponent} from './root/root.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {MatIconModule, MatToolbarModule} from "@angular/material";
-import {ToolbarComponent} from './toolbar/toolbar.component';
-import {HomeComponent} from './home/home.component';
+import {
+    MatButtonModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatPaginatorModule, MatProgressSpinnerModule, MatTableModule,
+    MatToolbarModule
+} from "@angular/material";
+import {HeaderComponent} from './header/header.component';
 import {HttpClientModule} from "@angular/common/http";
+import { DrugListComponent } from './drugs/drug-list/drug-list.component';
+import { DrugsComponent } from './drugs/drugs.component';
 
 @NgModule({
     declarations: [
         RootComponent,
-        ToolbarComponent,
-        HomeComponent
+        HeaderComponent,
+        DrugListComponent,
+        DrugsComponent
     ],
     imports: [
         BrowserModule,
@@ -21,7 +30,13 @@ import {HttpClientModule} from "@angular/common/http";
         BrowserAnimationsModule,
         MatToolbarModule,
         MatIconModule,
-        HttpClientModule
+        MatButtonModule,
+        MatCardModule,
+        MatPaginatorModule,
+        MatFormFieldModule,
+        HttpClientModule,
+        MatTableModule,
+        MatProgressSpinnerModule
     ],
     providers: [],
     bootstrap: [RootComponent]

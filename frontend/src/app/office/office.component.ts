@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {Office} from "./office.model";
 
 @Component({
   selector: 'app-office',
@@ -11,6 +12,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OfficeComponent implements OnInit {
+  officeData: Office;
 
   constructor() { }
 

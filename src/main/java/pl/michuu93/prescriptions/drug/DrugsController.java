@@ -10,7 +10,7 @@ import pl.michuu93.prescriptions.drug.model.DrugsList;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/drugs")
+@RequestMapping("/api/drugs")
 public class DrugsController {
     private DrugService drugService;
 

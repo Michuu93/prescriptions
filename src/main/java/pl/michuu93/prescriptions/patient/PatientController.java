@@ -7,7 +7,7 @@ import pl.michuu93.prescriptions.patient.model.Patient;
 
 @Slf4j
 @RestController
-@RequestMapping("/patients")
+@RequestMapping("/api/patients")
 public class PatientController {
     private PatientService patientService;
 

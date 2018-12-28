@@ -41,7 +41,7 @@
             [pageIndex]="pageIndex"
             [pageSize]="pageSize"
             [pageSizeOptions]="pageSizeOptions"
-            (page)="getDrugPage($event.pageIndex, $event.pageSize)"
+            (page)="loadDrugsPage($event.pageIndex, $event.pageSize)"
             showFirstLastButtons>
     </mat-paginator>
 </div>

@@ -18,6 +18,7 @@ export class DrugsUploaderService {
     }
 
     onErrorItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
-        this.snackBar.open('Cannot upload drugs. Error code ' + status);
+        console.log("Error when uploading drugs: " + response);
+        this.snackBar.open('Error when uploading drug: ' + JSON.parse(response).status);
     }
 }

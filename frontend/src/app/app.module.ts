@@ -4,6 +4,7 @@ import {NgModule} from '@angular/core';
 import {RootComponent} from './root/root.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {
+    MAT_SNACK_BAR_DEFAULT_OPTIONS,
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,
@@ -48,7 +49,9 @@ import {FileUploadModule} from 'ng2-file-upload';
         MatSnackBarModule,
         FileUploadModule
     ],
-    providers: [],
+    providers: [
+        {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 3000}}
+    ],
     bootstrap: [RootComponent]
 })
 export class AppModule {

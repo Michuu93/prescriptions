@@ -2,6 +2,7 @@ import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {Drug} from "../model/drug.model";
 import {DrugsService} from "../drugs.service";
 import {MatTableDataSource} from "@angular/material";
+import {DrugsUploaderService} from "../drugs-uploader/drugs-uploader.service";
 
 @Component({
     selector: 'app-drug-list',
@@ -14,8 +15,8 @@ export class DrugsListComponent implements OnInit {
     displayedColumns: string[] = ['bl7', 'ean', 'name', 'internationalName', 'price'];
     dataSource = new MatTableDataSource<Drug>();
 
-    pageIndex = 0;
-    pageSize = 10;
+    pageIndex: number;
+    pageSize: number;
     pageSizeOptions: number[] = [5, 10, 20, 50];
     resultsLength: number;
     isLoadingResults = false;
@@ -24,10 +25,16 @@ export class DrugsListComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.getDrugPage(this.pageIndex, this.pageSize);
+        this.firstLoadDrugPage();
     }
 
-    getDrugPage(pageIndex, pageSize): void {
+    firstLoadDrugPage(): void {
+        this.pageIndex = 0;
+        this.pageSize = 10;
+        this.loadDrugsPage(this.pageIndex, this.pageSize);
+    }
+
+    loadDrugsPage(pageIndex, pageSize): void {
         this.isLoadingResults = true;
         this.drugsService.getDrugPage(pageIndex, pageSize)
             .subscribe(
@@ -35,6 +42,10 @@ export class DrugsListComponent implements OnInit {
                     this.dataSource.data = response.content;
                     this.resultsLength = response.totalElements;
                     this.isLoadingResults = false;
-                })
+                },
+                error => {
+                    console.log("Error when getting drugs list: " + error);
+                    this.isLoadingResults = false;
+                });
     }
 }

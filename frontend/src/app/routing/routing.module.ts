@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from "@angular/router";
 import {DrugsComponent} from "../drugs/drugs.component";
 import {PrescriptionsComponent} from "../prescriptions/prescriptions.component";
-import {OfficeComponent} from "../office/office.component";
+import {ConfigurationComponent} from "../configuration/configuration.component";
 import {PatientsComponent} from "../patients/patients.component";
 
 const routes: Routes = [
@@ -19,8 +19,8 @@ const routes: Routes = [
         component: DrugsComponent
     },
     {
-        path: 'office',
-        component: OfficeComponent
+        path: 'configuration',
+        component: ConfigurationComponent
     }
 ];
 

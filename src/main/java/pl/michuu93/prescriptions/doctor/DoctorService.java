@@ -2,11 +2,8 @@ package pl.michuu93.prescriptions.doctor;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import pl.michuu93.prescriptions.exception.DoctorException;
 
-import java.util.Optional;
-
-import static java.util.Objects.isNull;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -17,14 +14,12 @@ public class DoctorService {
         this.doctorRepository = doctorRepository;
     }
 
-    Optional<Doctor> findByLicense(String license) {
-        return doctorRepository.findById(license);
+    Doctor getDoctor() {
+        List<Doctor> officeData = doctorRepository.findAll();
+        return officeData.isEmpty() ? null : officeData.get(0);
     }
 
     Doctor upsert(Doctor doctor) {
-        if (isNull(doctor.getLicense())) {
-            throw new DoctorException("No license");
-        }
-        return doctorRepository.saveAndFlush(doctor);
+        return doctorRepository.save(doctor);
     }
 }

@@ -9,6 +9,7 @@ import javax.persistence.Id;
 @Entity
 public class Doctor {
     @Id
+    private final String id = "doctorData";
     private String license;
     private String firstName;
     private String lastName;

@@ -3,13 +3,12 @@ import {DrugPage} from "./model/drugs-page.model";
 import {HttpClient} from "@angular/common/http";
 import {Injectable} from "@angular/core";
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class DrugsService {
     constructor(private http: HttpClient) {
     }
 
     getDrugPage(page: number, size: number): Observable<DrugPage> {
-        let url = "/api/drugs/?page=" + page + "&size=" + size;
-        return this.http.get<DrugPage>(url);
+        return this.http.get<DrugPage>(`/api/drugs/?page=${page}&size=${size}`);
     }
 }

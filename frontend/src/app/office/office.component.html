@@ -1,0 +1,16 @@
+<div class="component-container">
+    <div class="mat-elevation-z8">
+        <form>
+            <mat-form-field>
+                <input matInput placeholder="Name" [(ngModel)]="officeData.name" name="name">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Address" [(ngModel)]="officeData.address" name="address">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Regon" [(ngModel)]="officeData.regon" name="regon">
+            </mat-form-field>
+            <button mat-raised-button color="primary" (click)='saveOfficeData()'>Save</button>
+        </form>
+    </div>
+</div>

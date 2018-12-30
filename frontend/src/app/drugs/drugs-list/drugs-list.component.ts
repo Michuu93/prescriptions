@@ -1,15 +1,12 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Drug} from "../model/drug.model";
 import {DrugsService} from "../drugs.service";
 import {MatTableDataSource} from "@angular/material";
-import {DrugsUploaderService} from "../drugs-uploader/drugs-uploader.service";
 
 @Component({
     selector: 'app-drug-list',
     templateUrl: './drugs-list.component.html',
-    styleUrls: ['./drugs-list.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [DrugsService]
+    styleUrls: ['./drugs-list.component.scss']
 })
 export class DrugsListComponent implements OnInit {
     displayedColumns: string[] = ['bl7', 'ean', 'name', 'internationalName', 'price'];
@@ -28,13 +25,13 @@ export class DrugsListComponent implements OnInit {
         this.firstLoadDrugPage();
     }
 
-    firstLoadDrugPage(): void {
+    firstLoadDrugPage() {
         this.pageIndex = 0;
         this.pageSize = 10;
         this.loadDrugsPage(this.pageIndex, this.pageSize);
     }
 
-    loadDrugsPage(pageIndex, pageSize): void {
+    loadDrugsPage(pageIndex, pageSize) {
         this.isLoadingResults = true;
         this.drugsService.getDrugPage(pageIndex, pageSize)
             .subscribe(
@@ -44,7 +41,7 @@ export class DrugsListComponent implements OnInit {
                     this.isLoadingResults = false;
                 },
                 error => {
-                    console.log("Error when getting drugs list: " + error);
+                    console.log("Error when getting drugs list: " + JSON.stringify(error));
                     this.isLoadingResults = false;
                 });
     }

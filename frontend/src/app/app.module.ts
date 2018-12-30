@@ -8,7 +8,7 @@ import {
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,
-    MatIconModule, MatMenuModule,
+    MatIconModule, MatInputModule, MatMenuModule,
     MatPaginatorModule, MatProgressSpinnerModule, MatSnackBarModule, MatTableModule,
     MatToolbarModule
 } from "@angular/material";
@@ -21,6 +21,7 @@ import {RoutingModule} from "./routing/routing.module";
 import { OfficeComponent } from './office/office.component';
 import { PatientsComponent } from './patients/patients.component';
 import {FileUploadModule} from 'ng2-file-upload';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
     declarations: [
@@ -47,7 +48,9 @@ import {FileUploadModule} from 'ng2-file-upload';
         MatProgressSpinnerModule,
         MatMenuModule,
         MatSnackBarModule,
-        FileUploadModule
+        FileUploadModule,
+        MatInputModule,
+        FormsModule
     ],
     providers: [
         {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 3000}}

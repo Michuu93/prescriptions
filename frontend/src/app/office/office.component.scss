@@ -1,0 +1,13 @@
+form {
+    max-width: 40%;
+    padding: 20px 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: auto;
+}
+
+form > button {
+    width: 100px;
+    margin: auto;
+}

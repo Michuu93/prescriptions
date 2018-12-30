@@ -1,8 +1,8 @@
 import {HttpClient} from "@angular/common/http";
 import {Injectable} from "@angular/core";
-import {OfficeData} from "./office.model";
+import {OfficeData} from "./model/office.model";
 import {Observable} from "rxjs";
-import {DoctorData} from "./doctor.model";
+import {DoctorData} from "./model/doctor.model";
 
 @Injectable({providedIn: 'root'})
 export class ConfigurationService {

@@ -15,6 +15,7 @@ import {PatientsComponent} from './patients/patients.component';
 import {FileUploadModule} from 'ng2-file-upload';
 import {FormsModule} from "@angular/forms";
 import {MaterialModule} from "./material.module";
+import {PatientsListComponent} from "./patients/patients-list/patients-list.component";
 
 @NgModule({
     declarations: [
@@ -24,6 +25,7 @@ import {MaterialModule} from "./material.module";
         DrugsComponent,
         DrugsListComponent,
         PatientsComponent,
+        PatientsListComponent,
         ConfigurationComponent
     ],
     imports: [

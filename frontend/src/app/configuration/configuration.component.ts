@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {OfficeData} from "./office.model";
+import {OfficeData} from "./model/office.model";
 import {ConfigurationService} from "./configuration.service";
-import {DoctorData} from "./doctor.model";
+import {DoctorData} from "./model/doctor.model";
 
 @Component({
     selector: 'app-office',

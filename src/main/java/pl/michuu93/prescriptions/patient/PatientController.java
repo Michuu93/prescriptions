@@ -1,6 +1,8 @@
 package pl.michuu93.prescriptions.patient;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.michuu93.prescriptions.patient.model.Patient;
@@ -13,6 +15,11 @@ public class PatientController {
 
     public PatientController(PatientService patientService) {
         this.patientService = patientService;
+    }
+
+    @GetMapping
+    public Page<Patient> getPatients(Pageable pageable) {
+        return patientService.getPatients(pageable);
     }
 
     @GetMapping("/{id}")

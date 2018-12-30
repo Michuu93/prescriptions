@@ -1,6 +1,6 @@
 import {Drug} from "./drug.model";
 
-export class DrugPage {
+export class DrugsPage {
     content: Drug[];
     totalElements: number;
     empty: boolean;

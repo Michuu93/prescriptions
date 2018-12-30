@@ -2,9 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {Drug} from "../model/drug.model";
 import {DrugsService} from "../drugs.service";
 import {MatTableDataSource} from "@angular/material";
+import {DrugsPage} from "../model/drugs-page.model";
 
 @Component({
-    selector: 'app-drug-list',
+    selector: 'app-drugs-list',
     templateUrl: './drugs-list.component.html',
     styleUrls: ['./drugs-list.component.scss']
 })
@@ -33,16 +34,17 @@ export class DrugsListComponent implements OnInit {
 
     loadDrugsPage(pageIndex, pageSize) {
         this.isLoadingResults = true;
-        this.drugsService.getDrugPage(pageIndex, pageSize)
+        this.drugsService.getDrugsPage(pageIndex, pageSize)
             .subscribe(
-                response => {
+                (response: DrugsPage) => {
                     this.dataSource.data = response.content;
                     this.resultsLength = response.totalElements;
-                    this.isLoadingResults = false;
                 },
                 error => {
                     console.log("Error when getting drugs list: " + JSON.stringify(error));
-                    this.isLoadingResults = false;
-                });
+                })
+            .add(() => {
+                this.isLoadingResults = false;
+            });
     }
 }

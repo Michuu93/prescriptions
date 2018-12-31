@@ -7,3 +7,8 @@ export class Patient {
     public address: string;
     public nfz: string;
 }
+
+export interface IdType {
+    value: string;
+    viewValue: string;
+}

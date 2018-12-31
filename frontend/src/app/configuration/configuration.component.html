@@ -1,7 +1,7 @@
 <div class="component-container">
     <mat-tab-group mat-stretch-tabs class="mat-elevation-z8">
         <mat-tab label="Office">
-            <form>
+            <form (ngSubmit)="saveOfficeData()">
                 <mat-form-field>
                     <input matInput placeholder="Name" [(ngModel)]="officeData.name" name="name">
                 </mat-form-field>
@@ -11,11 +11,11 @@
                 <mat-form-field>
                     <input matInput placeholder="Regon" [(ngModel)]="officeData.regon" name="regon">
                 </mat-form-field>
-                <button mat-raised-button color="primary" (click)='saveOfficeData()'>Save</button>
+                <button mat-raised-button color="primary" type="submit">Save</button>
             </form>
         </mat-tab>
         <mat-tab label="Doctor">
-            <form>
+            <form (ngSubmit)="saveDoctorData()">
                 <mat-form-field>
                     <input matInput placeholder="First Name" [(ngModel)]="doctorData.firstName" name="name">
                 </mat-form-field>
@@ -25,7 +25,7 @@
                 <mat-form-field>
                     <input matInput placeholder="License" [(ngModel)]="doctorData.license" name="regon">
                 </mat-form-field>
-                <button mat-raised-button color="primary" (click)='saveDoctorData()'>Save</button>
+                <button mat-raised-button color="primary" type="submit">Save</button>
             </form>
         </mat-tab>
     </mat-tab-group>

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {OfficeData} from "./model/office.model";
 import {ConfigurationService} from "./configuration.service";
 import {DoctorData} from "./model/doctor.model";
+import {MatSnackBar} from "@angular/material";
 
 @Component({
     selector: 'app-office',
@@ -12,7 +13,7 @@ export class ConfigurationComponent implements OnInit {
     officeData: OfficeData = new OfficeData();
     doctorData: DoctorData = new DoctorData();
 
-    constructor(private officeService: ConfigurationService) {
+    constructor(private officeService: ConfigurationService, private snackBar: MatSnackBar) {
     }
 
     ngOnInit() {
@@ -27,7 +28,10 @@ export class ConfigurationComponent implements OnInit {
                     this.officeData = response;
                 },
                 error => {
-                    console.log("Error when getting officeData: " + JSON.stringify(error));
+                    if (error.status != 404) {
+                        console.log("Error when getting Office Data: " + JSON.stringify(error));
+                        this.snackBar.open('Error when getting Office Data!');
+                    }
                 });
     }
 
@@ -36,9 +40,11 @@ export class ConfigurationComponent implements OnInit {
             .subscribe(
                 (response: OfficeData) => {
                     console.log("Save officeData: " + JSON.stringify(response));
+                    this.snackBar.open('Office Data saved!');
                 },
                 error => {
                     console.log("Error when saving officeData: " + JSON.stringify(error));
+                    this.snackBar.open('Error when saving Office Data!');
                 });
     }
 
@@ -49,7 +55,10 @@ export class ConfigurationComponent implements OnInit {
                     this.doctorData = response;
                 },
                 error => {
-                    console.log("Error when getting doctorData: " + JSON.stringify(error));
+                    if (error.status != 404) {
+                        console.log(error.status + "Error when getting Doctor Data: " + JSON.stringify(error));
+                        this.snackBar.open('Error when getting Doctor Data!');
+                    }
                 });
     }
 
@@ -58,9 +67,11 @@ export class ConfigurationComponent implements OnInit {
             .subscribe(
                 (response: DoctorData) => {
                     console.log("Save doctorData: " + JSON.stringify(response));
+                    this.snackBar.open('Doctor Data saved!');
                 },
                 error => {
-                    console.log("Error when saving doctorData: " + JSON.stringify(error));
+                    console.log("Error when saving Doctor Data: " + JSON.stringify(error));
+                    this.snackBar.open('Error when saving Doctor Data!');
                 });
     }
 }

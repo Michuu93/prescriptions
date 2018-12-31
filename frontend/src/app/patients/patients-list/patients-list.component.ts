@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {MatTableDataSource} from "@angular/material";
+import {MatSnackBar, MatTableDataSource} from "@angular/material";
 import {PatientsService} from "../patients.service";
 import {Patient} from "../model/patient.model";
 
@@ -18,7 +18,7 @@ export class PatientsListComponent implements OnInit {
     resultsLength: number;
     isLoadingResults = false;
 
-    constructor(private patientsService: PatientsService) {
+    constructor(private patientsService: PatientsService, private snackBar: MatSnackBar) {
     }
 
     ngOnInit() {
@@ -40,7 +40,10 @@ export class PatientsListComponent implements OnInit {
                     this.resultsLength = response.totalElements;
                 },
                 error => {
-                    console.log("Error when getting patients list: " + JSON.stringify(error));
+                    if (error.status != 404) {
+                        console.log("Error when getting Patients List: " + JSON.stringify(error));
+                        this.snackBar.open('Error when getting Patients List!');
+                    }
                 })
             .add(() => {
                 this.isLoadingResults = false;

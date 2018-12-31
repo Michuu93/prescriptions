@@ -6,11 +6,11 @@ import {MatSnackBar} from "@angular/material";
 import {Subscription} from "rxjs";
 
 @Component({
-    selector: 'app-patients-add',
-    templateUrl: './patients-add.component.html',
-    styleUrls: ['./patients-add.component.scss']
+    selector: 'app-patients-create',
+    templateUrl: './patients-create.component.html',
+    styleUrls: ['./patients-create.component.scss']
 })
-export class PatientsAddComponent implements OnInit, OnDestroy {
+export class PatientsCreateComponent implements OnInit, OnDestroy {
     @ViewChild('patientForm') patientForm;
     editedPatient: Patient = new Patient();
     editedPatientSubscription: Subscription;
@@ -26,7 +26,7 @@ export class PatientsAddComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.editedPatientSubscription = this.patientsService.editedPatient.subscribe(
+        this.editedPatientSubscription = this.patientsService.patientEdited.subscribe(
             patient => {
                 this.editedPatient = patient;
                 this.datePicker = patient.birthdate;
@@ -35,21 +35,21 @@ export class PatientsAddComponent implements OnInit, OnDestroy {
         this.editedPatient.idType = this.idTypes[0].value;
     }
 
-    addPatient() {
+    savePatient() {
         if (this.datePicker) {
             this.editedPatient.birthdate = formatDate(this.datePicker, 'yyyy-MM-dd', this.locale);
         }
         this.patientsService.savePatient(this.editedPatient)
             .subscribe(
                 (response: Patient) => {
-                    console.log("Save editedPatient: " + JSON.stringify(response));
-                    this.patientsService.addPatient.emit();
+                    console.log("Save patient: " + JSON.stringify(response));
+                    this.patientsService.patientSaved.emit();
                     this.snackBar.open('Patient saved!');
                     this.resetForm();
                 },
                 error => {
-                    console.log("Error when saving editedPatient: " + JSON.stringify(error));
-                    this.snackBar.open('Error when saving editedPatient!');
+                    console.log("Error when saving patient: " + JSON.stringify(error));
+                    this.snackBar.open('Error when saving patient!');
                 });
     }
 
@@ -57,6 +57,10 @@ export class PatientsAddComponent implements OnInit, OnDestroy {
         this.editedPatient = new Patient();
         this.editedPatient.idType = this.idTypes[0].value;
         this.patientForm.resetForm();
+        Object.keys(this.patientForm.controls).forEach((name) => {
+            let control = this.patientForm.controls[name];
+            control.setErrors(null);
+        });
     }
 
     ngOnDestroy(): void {

@@ -25,7 +25,7 @@ export class PatientsListComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.firstLoadDrugPage();
-        this.addPatientSubscription = this.patientsService.addPatient.subscribe(() => {
+        this.addPatientSubscription = this.patientsService.patientSaved.subscribe(() => {
             this.loadPatientsPage(this.pageIndex, this.pageSize);
         });
     }
@@ -56,7 +56,7 @@ export class PatientsListComponent implements OnInit, OnDestroy {
     }
 
     editPatient(patient: Patient) {
-        this.patientsService.editedPatient.emit(patient);
+        this.patientsService.patientEdited.emit(patient);
         this.patientsService.editPatient.emit();
     }
 

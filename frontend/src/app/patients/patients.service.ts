@@ -6,9 +6,9 @@ import {Patient} from "./model/patient.model";
 
 @Injectable({providedIn: 'root'})
 export class PatientsService {
-    editedPatient = new EventEmitter<Patient>();
+    patientEdited = new EventEmitter<Patient>();
     editPatient = new EventEmitter();
-    addPatient = new EventEmitter();
+    patientSaved = new EventEmitter();
 
     constructor(private http: HttpClient) {
     }

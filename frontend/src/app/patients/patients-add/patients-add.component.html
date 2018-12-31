@@ -1,30 +1,37 @@
-<form #f="ngForm">
+<form #patientForm="ngForm">
     <mat-form-field>
-        <mat-select placeholder="ID Type" [(value)]="patient.idType">
+        <mat-select placeholder="ID Type" [(value)]="editedPatient.idType">
             <mat-option *ngFor="let type of idTypes" [value]="type.value" >
                 {{type.viewValue}}
             </mat-option>
         </mat-select>
     </mat-form-field>
     <mat-form-field>
-        <input matInput placeholder="ID Number" [(ngModel)]="patient.id" name="id" required>
+        <input matInput placeholder="ID Number" [(ngModel)]="editedPatient.id" name="id" required>
     </mat-form-field>
     <mat-form-field>
-        <input matInput placeholder="First Name" [(ngModel)]="patient.firstName" name="firstName" required>
+        <input matInput placeholder="First Name" [(ngModel)]="editedPatient.firstName" name="firstName" required>
     </mat-form-field>
     <mat-form-field>
-    <input matInput placeholder="Last Name" [(ngModel)]="patient.lastName" name="lastName" required>
+    <input matInput placeholder="Last Name" [(ngModel)]="editedPatient.lastName" name="lastName" required>
     </mat-form-field>
     <mat-form-field>
-        <input matInput [max]="maxDate" [matDatepicker]="picker" placeholder="Birthdate" [(ngModel)]="datePicker" [disabled]="patient.idType == 'PERSONAL_ID'" name="birthdate">
+        <input matInput
+               [max]="maxDate"
+               [matDatepicker]="picker"
+               placeholder="Birthdate"
+               [(ngModel)]="datePicker"
+               [disabled]="editedPatient.idType == 'PERSONAL_ID'"
+               name="birthdate"
+               required>
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
     <mat-form-field>
-        <input matInput placeholder="Address" [(ngModel)]="patient.address" name="address" required>
+        <input matInput placeholder="Address" [(ngModel)]="editedPatient.address" name="address" required>
     </mat-form-field>
     <mat-form-field>
-        <input matInput placeholder="NFZ Department" [(ngModel)]="patient.nfz" name="nfz" required>
+        <input matInput placeholder="NFZ Department" [(ngModel)]="editedPatient.nfz" name="nfz" required>
     </mat-form-field>
-    <button mat-raised-button color="primary" (click)="addPatient()" [disabled]="!f.valid">Add</button>
+    <button mat-raised-button color="primary" (click)="addPatient()" [disabled]="!patientForm.valid">Add</button>
 </form>

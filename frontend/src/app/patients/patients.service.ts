@@ -1,11 +1,15 @@
 import {HttpClient} from "@angular/common/http";
-import {Injectable} from "@angular/core";
+import {EventEmitter, Injectable} from "@angular/core";
 import {Observable} from "rxjs";
 import {PatientsPage} from "./model/patients-page.model";
 import {Patient} from "./model/patient.model";
 
 @Injectable({providedIn: 'root'})
 export class PatientsService {
+    editedPatient = new EventEmitter<Patient>();
+    editPatient = new EventEmitter();
+    addPatient = new EventEmitter();
+
     constructor(private http: HttpClient) {
     }
 

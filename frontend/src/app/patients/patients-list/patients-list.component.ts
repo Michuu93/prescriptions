@@ -1,5 +1,5 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {MatSnackBar, MatTableDataSource} from "@angular/material";
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {MatPaginator, MatSnackBar, MatTableDataSource} from "@angular/material";
 import {PatientsService} from "../patients.service";
 import {Patient} from "../model/patient.model";
 import {Subscription} from "rxjs";
@@ -13,6 +13,8 @@ export class PatientsListComponent implements OnInit, OnDestroy {
     displayedColumns: string[] = ['id', 'firstName', 'lastName'];
     dataSource = new MatTableDataSource<Patient>();
     addPatientSubscription: Subscription;
+    @ViewChild('searchValue') searchInput: ElementRef;
+    @ViewChild(MatPaginator) paginator: MatPaginator;
 
     pageIndex: number = 0;
     pageSize: number = 15;
@@ -30,9 +32,11 @@ export class PatientsListComponent implements OnInit, OnDestroy {
         });
     }
 
-    getPatientsPage(pageIndex, pageSize) {
+    getPatientsPage(pageIndex: number = 0, pageSize: number = this.paginator.pageSize) {
         this.isLoadingResults = true;
-        this.patientsService.getPatientsPage(pageIndex, pageSize)
+        let searchName = this.searchInput.nativeElement.value.trim();
+        this.paginator.pageIndex = pageIndex;
+        this.patientsService.getPatientsPage(pageIndex, pageSize, searchName)
             .subscribe(
                 response => {
                     this.dataSource.data = response.content;

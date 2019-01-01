@@ -27,6 +27,10 @@ public class PatientService {
         return patientRepository.findAll(pageable);
     }
 
+    Page<Patient> getPatientsByIdOrLastName(Pageable pageable, String searchValue) {
+        return patientRepository.findByIdContainingIgnoreCaseOrLastNameContainingIgnoreCase(pageable, searchValue, searchValue);
+    }
+
     Optional<Patient> findById(String id) {
         return patientRepository.findById(id);
     }

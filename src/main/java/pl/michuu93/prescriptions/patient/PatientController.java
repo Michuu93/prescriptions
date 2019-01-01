@@ -22,6 +22,11 @@ public class PatientController {
         return patientService.getPatients(pageable);
     }
 
+    @GetMapping("/search/{searchValue}")
+    public Page<Patient> getPatients(Pageable pageable, @PathVariable String searchValue) {
+        return patientService.getPatientsByIdOrLastName(pageable, searchValue);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Patient> getPatient(@PathVariable String id) {
         return patientService.findById(id)

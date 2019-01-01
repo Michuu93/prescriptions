@@ -4,16 +4,18 @@ import {formatDate} from "@angular/common";
 import {PatientsService} from "../patients.service";
 import {MatSnackBar} from "@angular/material";
 import {Subscription} from "rxjs";
+import {NgForm} from "@angular/forms";
 
 @Component({
-    selector: 'app-patients-create',
-    templateUrl: './patients-create.component.html',
-    styleUrls: ['./patients-create.component.scss']
+    selector: 'app-patients-edit',
+    templateUrl: './patients-edit.component.html',
+    styleUrls: ['./patients-edit.component.scss']
 })
-export class PatientsCreateComponent implements OnInit, OnDestroy {
-    @ViewChild('patientForm') patientForm;
+export class PatientsEditComponent implements OnInit, OnDestroy {
+    @ViewChild('patientForm') patientForm: NgForm;
     editedPatient: Patient = new Patient();
     editedPatientSubscription: Subscription;
+    editModeSubscription: Subscription;
     idTypes: IdType[] = [
         {value: 'PERSONAL_ID', viewValue: 'Personal ID'},
         {value: 'PARENT_ID', viewValue: 'Parent ID'},
@@ -21,6 +23,7 @@ export class PatientsCreateComponent implements OnInit, OnDestroy {
     ];
     maxDate = new Date();
     datePicker: Date;
+    editMode: boolean;
 
     constructor(@Inject(LOCALE_ID) private locale: string, private patientsService: PatientsService, private snackBar: MatSnackBar) {
     }
@@ -30,6 +33,12 @@ export class PatientsCreateComponent implements OnInit, OnDestroy {
             patient => {
                 this.editedPatient = patient;
                 this.datePicker = patient.birthdate;
+                this.editMode = true;
+            }
+        );
+        this.editModeSubscription = this.patientsService.editMode.subscribe(
+            (editMode: boolean) => {
+                this.editMode = editMode;
             }
         );
         this.editedPatient.idType = this.idTypes[0].value;
@@ -43,7 +52,7 @@ export class PatientsCreateComponent implements OnInit, OnDestroy {
             .subscribe(
                 (response: Patient) => {
                     console.log("Save patient: " + JSON.stringify(response));
-                    this.patientsService.patientSaved.emit();
+                    this.patientsService.patientsChange.emit();
                     this.snackBar.open('Patient saved!');
                     this.resetForm();
                 },
@@ -53,17 +62,31 @@ export class PatientsCreateComponent implements OnInit, OnDestroy {
                 });
     }
 
+    deletePatient() {
+        this.patientsService.deletePatient(this.editedPatient)
+            .subscribe(
+                () => {
+                    console.log("Delete patient: " + JSON.stringify(this.editedPatient));
+                    this.patientsService.patientsChange.emit();
+                    this.snackBar.open('Patient deleted!');
+                    this.resetForm();
+                },
+                error => {
+                    console.log("Error when deleting patient: " + JSON.stringify(error));
+                    this.snackBar.open('Error when deleting patient!');
+                }
+            )
+    }
+
     resetForm() {
+        this.patientsService.editMode.emit(false);
         this.editedPatient = new Patient();
         this.editedPatient.idType = this.idTypes[0].value;
         this.patientForm.resetForm();
-        Object.keys(this.patientForm.controls).forEach((name) => {
-            let control = this.patientForm.controls[name];
-            control.setErrors(null);
-        });
     }
 
     ngOnDestroy(): void {
         this.editedPatientSubscription.unsubscribe();
+        this.editModeSubscription.unsubscribe();
     }
 }

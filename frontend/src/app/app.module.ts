@@ -16,18 +16,22 @@ import {FileUploadModule} from 'ng2-file-upload';
 import {FormsModule} from "@angular/forms";
 import {MaterialModule} from "./material.module";
 import {PatientsListComponent} from "./patients/patients-list/patients-list.component";
-import {PatientsCreateComponent} from "./patients/patients-create/patients-create.component";
+import {PatientsEditComponent} from "./patients/patients-edit/patients-edit.component";
+import {PrescriptionsListComponent} from "./prescriptions/prescriptions-list/prescriptions-list.component";
+import {PrescriptionsEditComponent} from "./prescriptions/prescriptions-edit/prescriptions-edit.component";
 
 @NgModule({
     declarations: [
         RootComponent,
         HeaderComponent,
         PrescriptionsComponent,
+        PrescriptionsListComponent,
+        PrescriptionsEditComponent,
         DrugsComponent,
         DrugsListComponent,
         PatientsComponent,
         PatientsListComponent,
-        PatientsCreateComponent,
+        PatientsEditComponent,
         ConfigurationComponent
     ],
     imports: [
@@ -38,6 +42,10 @@ import {PatientsCreateComponent} from "./patients/patients-create/patients-creat
         HttpClientModule,
         FileUploadModule,
         FormsModule
+    ],
+    entryComponents: [
+        PatientsListComponent,
+        DrugsListComponent
     ],
     providers: [
         {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 3000}}

@@ -35,7 +35,7 @@ public class PatientService {
         return patientRepository.findById(id);
     }
 
-    Patient upsert(Patient patient) {
+    Patient upsertPatient(Patient patient) {
         if (IdentType.PERSONAL_ID.equals(patient.getIdType())) {
             validatePesel(patient);
             setBirthdate(patient);
@@ -45,6 +45,10 @@ public class PatientService {
             throw new BirthdateException("No birthdate");
         }
         return patientRepository.saveAndFlush(patient);
+    }
+
+    void deletePatient(String id) {
+        patientRepository.deleteById(id);
     }
 
     private void validatePesel(Patient patient) {

@@ -1,0 +1,7 @@
+<form #patientForm="ngForm">
+    <div class="form-buttons">
+        <button mat-raised-button color="primary" (click)="openPatients()">Search Patient</button>
+        <button mat-raised-button color="primary" (click)="openDrugs()">Search Drug</button>
+    </div>
+    <p>{{ selectedPatient | json }}</p>
+</form>

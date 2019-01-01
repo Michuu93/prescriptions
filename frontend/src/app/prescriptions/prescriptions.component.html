@@ -1,5 +1,10 @@
 <div class="component-container">
-    <div class="mat-elevation-z8">
-        prescriptions
-    </div>
+    <mat-tab-group mat-stretch-tabs [(selectedIndex)]="selectedIndex" class="mat-elevation-z8">
+        <mat-tab label="List">
+            <app-prescriptions-list></app-prescriptions-list>
+        </mat-tab>
+        <mat-tab [label]="editMode ? 'Edit' : 'Create'">
+            <app-prescriptions-edit></app-prescriptions-edit>
+        </mat-tab>
+    </mat-tab-group>
 </div>

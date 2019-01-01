@@ -1,0 +1,38 @@
+<mat-form-field>
+    <input matInput (keyup.enter)="getPatientsPage()" placeholder="ID or Last Name" #searchValue>
+</mat-form-field>
+<div class="mat-elevation-z8">
+    <div class="loader" *ngIf="isLoadingResults">
+        <mat-spinner></mat-spinner>
+    </div>
+    <table mat-table [dataSource]="dataSource">
+        <!-- id Column -->
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> ID</th>
+            <td mat-cell *matCellDef="let element"> {{element.id}}</td>
+        </ng-container>
+
+        <!-- firstName Column -->
+        <ng-container matColumnDef="firstName">
+            <th mat-header-cell *matHeaderCellDef> First Name</th>
+            <td mat-cell *matCellDef="let element"> {{element.firstName}}</td>
+        </ng-container>
+
+        <!-- lastName Column -->
+        <ng-container matColumnDef="lastName">
+            <th mat-header-cell *matHeaderCellDef> Last Name</th>
+            <td mat-cell *matCellDef="let element"> {{element.lastName}}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row (click)="editPatient(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator
+            [length]="resultsLength"
+            [pageIndex]="pageIndex"
+            [pageSize]="pageSize"
+            [pageSizeOptions]="pageSizeOptions"
+            (page)="getPatientsPage($event.pageIndex, $event.pageSize)"
+            showFirstLastButtons>
+    </mat-paginator>
+</div>

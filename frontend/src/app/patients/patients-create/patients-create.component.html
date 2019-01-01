@@ -1,0 +1,40 @@
+<form #patientForm="ngForm">
+    <mat-form-field>
+        <mat-select placeholder="ID Type" [(value)]="editedPatient.idType">
+            <mat-option *ngFor="let type of idTypes" [value]="type.value" >
+                {{type.viewValue}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="ID Number" [(ngModel)]="editedPatient.id" name="id" required>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="First Name" [(ngModel)]="editedPatient.firstName" name="firstName" required>
+    </mat-form-field>
+    <mat-form-field>
+    <input matInput placeholder="Last Name" [(ngModel)]="editedPatient.lastName" name="lastName" required>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput
+               [max]="maxDate"
+               [matDatepicker]="picker"
+               placeholder="Birthdate"
+               [(ngModel)]="datePicker"
+               [disabled]="editedPatient.idType == 'PERSONAL_ID'"
+               name="birthdate"
+               required>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Address" [(ngModel)]="editedPatient.address" name="address" required>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="NFZ Department" [(ngModel)]="editedPatient.nfz" name="nfz" required>
+    </mat-form-field>
+    <div class="form-buttons">
+        <button mat-raised-button color="primary" (click)="savePatient()" [disabled]="!patientForm.valid">Save</button>
+        <button mat-raised-button color="secondary" (click)="resetForm()">Reset</button>
+    </div>
+</form>

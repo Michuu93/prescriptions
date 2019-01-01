@@ -1,5 +1,7 @@
 package pl.michuu93.prescriptions.drug;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -15,4 +17,8 @@ interface DrugRepository extends JpaRepository<Drug, String> {
     @Transactional
     @Query(value = "UPDATE Drug SET active = :isActive")
     int updateActivityInAll(@Param("isActive") boolean isActive);
+
+    Page<Drug> getAllByActiveTrue(Pageable pageable);
+
+    Page<Drug> findByNameContainingIgnoreCaseAndActiveTrue(Pageable pageable, String name);
 }

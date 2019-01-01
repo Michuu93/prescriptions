@@ -3,14 +3,15 @@ package pl.michuu93.prescriptions.patient.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Data
 @Entity
+@Table(indexes = {
+        @Index(columnList = "id"),
+        @Index(columnList = "lastName")
+})
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Patient {
     @Id

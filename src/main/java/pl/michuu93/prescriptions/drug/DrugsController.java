@@ -10,7 +10,7 @@ import pl.michuu93.prescriptions.drug.model.DrugsList;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/drugs")
+@RequestMapping("/api/drugs")
 public class DrugsController {
     private DrugService drugService;
 
@@ -21,6 +21,11 @@ public class DrugsController {
     @GetMapping
     public Page<Drug> getDrugs(Pageable pageable) {
         return drugService.getDrugs(pageable);
+    }
+
+    @GetMapping("/search/{name}")
+    public Page<Drug> getDrugs(Pageable pageable, @PathVariable String name) {
+        return drugService.getDrugsByName(pageable, name);
     }
 
     @GetMapping("/{bl7}")

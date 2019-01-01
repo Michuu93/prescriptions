@@ -1,9 +1,11 @@
 package pl.michuu93.prescriptions.patient;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import pl.michuu93.prescriptions.exception.PersonalIdException;
 import pl.michuu93.prescriptions.exception.BirthdateException;
+import pl.michuu93.prescriptions.exception.PersonalIdException;
 import pl.michuu93.prescriptions.patient.model.IdentType;
 import pl.michuu93.prescriptions.patient.model.Patient;
 
@@ -19,6 +21,14 @@ public class PatientService {
 
     public PatientService(PatientRepository patientRepository) {
         this.patientRepository = patientRepository;
+    }
+
+    Page<Patient> getPatients(Pageable pageable) {
+        return patientRepository.findAll(pageable);
+    }
+
+    Page<Patient> getPatientsByIdOrLastName(Pageable pageable, String searchValue) {
+        return patientRepository.findByIdContainingIgnoreCaseOrLastNameContainingIgnoreCase(pageable, searchValue, searchValue);
     }
 
     Optional<Patient> findById(String id) {
@@ -44,15 +54,7 @@ public class PatientService {
     }
 
     private void setBirthdate(Patient patient) {
-        if (isNull(patient.getBirthdate())) {
-            LocalDate birthdate = PeselUtils.calculateBirthdate(patient.getId());
-            patient.setBirthdate(birthdate);
-        } else {
-            LocalDate birthdate = patient.getBirthdate();
-            LocalDate birthdateFromPesel = PeselUtils.calculateBirthdate(patient.getId());
-            if (!birthdateFromPesel.equals(birthdate)) {
-                throw new BirthdateException("Invalid birthdate");
-            }
-        }
+        LocalDate birthdate = PeselUtils.calculateBirthdate(patient.getId());
+        patient.setBirthdate(birthdate);
     }
 }

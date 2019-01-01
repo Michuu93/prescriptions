@@ -19,7 +19,11 @@ public class DrugService {
     }
 
     Page<Drug> getDrugs(Pageable pageable) {
-        return drugRepository.findAll(pageable);
+        return drugRepository.getAllByActiveTrue(pageable);
+    }
+
+    Page<Drug> getDrugsByName(Pageable pageable, String name) {
+        return drugRepository.findByNameContainingIgnoreCaseAndActiveTrue(pageable, name);
     }
 
     Optional<Drug> getDrugByBl7(String bl7) {

@@ -8,7 +8,7 @@ import java.util.Objects;
 
 @Slf4j
 @RestController
-@RequestMapping("/office")
+@RequestMapping("/api/office")
 public class OfficeController {
     private OfficeService officeService;
 

@@ -1,0 +1,16 @@
+<mat-toolbar color="primary" class="mat-elevation-z6">
+    <mat-toolbar-row>
+        <a mat-button routerLink="/"><mat-icon>home</mat-icon> Prescriptions</a>
+        <a mat-button routerLink="/patients">Patients</a>
+        <a mat-button [matMenuTriggerFor]="appMenu">Drugs</a>
+        <a mat-button routerLink="/configuration">Configuration</a>
+    </mat-toolbar-row>
+
+    <mat-menu #appMenu="matMenu">
+        <button mat-menu-item routerLink="/drugs">Show List</button>
+        <button mat-menu-item (click)="fileInput.click()">
+            <span>Upload</span>
+            <input #fileInput type="file" ng2FileSelect [uploader]="uploader" style="display:none;" />
+        </button>
+    </mat-menu>
+</mat-toolbar>

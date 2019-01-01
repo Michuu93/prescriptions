@@ -10,7 +10,7 @@ import pl.michuu93.prescriptions.prescription.model.PrescriptionNumberList;
 
 @Slf4j
 @RestController
-@RequestMapping("/prescriptions")
+@RequestMapping("/api//prescriptions")
 public class PrescriptionController {
     private PrescriptionService prescriptionService;
 

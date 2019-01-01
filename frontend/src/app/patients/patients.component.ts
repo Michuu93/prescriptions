@@ -9,20 +9,24 @@ import {Subscription} from "rxjs";
 })
 export class PatientsComponent implements OnInit, OnDestroy {
     selectedIndex;
-    editPatientSubscription: Subscription;
+    editMode: boolean;
+    editModeSubscription: Subscription;
 
     constructor(private patientsService: PatientsService) {
     }
 
     ngOnInit() {
-        this.editPatientSubscription = this.patientsService.editPatient.subscribe(
-            () => {
-                this.selectedIndex = 1;
+        this.editModeSubscription = this.patientsService.editMode.subscribe(
+            (editMode: boolean) => {
+                if (editMode) {
+                    this.selectedIndex = 1;
+                }
+                this.editMode = editMode;
             }
         );
     }
 
     ngOnDestroy(): void {
-        this.editPatientSubscription.unsubscribe();
+        this.editModeSubscription.unsubscribe();
     }
 }

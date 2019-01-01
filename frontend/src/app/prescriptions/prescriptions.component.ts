@@ -1,14 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-prescriptions',
-  template: `
-    <p>
-      prescriptions works!
-    </p>
-  `,
-  styles: [],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  templateUrl: './prescriptions.component.html',
+  styleUrls: ['./prescriptions.component.scss']
 })
 export class PrescriptionsComponent implements OnInit {
 

@@ -3,8 +3,8 @@
         <mat-tab label="List">
             <app-patients-list></app-patients-list>
         </mat-tab>
-        <mat-tab label="Create">
-            <app-patients-create></app-patients-create>
+        <mat-tab [label]="editMode ? 'Edit' : 'Create'">
+            <app-patients-edit></app-patients-edit>
         </mat-tab>
     </mat-tab-group>
 </div>

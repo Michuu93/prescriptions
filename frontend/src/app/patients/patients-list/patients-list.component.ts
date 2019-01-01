@@ -12,7 +12,7 @@ import {Subscription} from "rxjs";
 export class PatientsListComponent implements OnInit, OnDestroy {
     displayedColumns: string[] = ['id', 'firstName', 'lastName'];
     dataSource = new MatTableDataSource<Patient>();
-    addPatientSubscription: Subscription;
+    patientsChangeSubscription: Subscription;
     @ViewChild('searchValue') searchInput: ElementRef;
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -27,7 +27,7 @@ export class PatientsListComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.getPatientsPage(this.pageIndex, this.pageSize);
-        this.addPatientSubscription = this.patientsService.patientSaved.subscribe(() => {
+        this.patientsChangeSubscription = this.patientsService.patientsChange.subscribe(() => {
             this.getPatientsPage(this.pageIndex, this.pageSize);
         });
     }
@@ -55,10 +55,10 @@ export class PatientsListComponent implements OnInit, OnDestroy {
 
     editPatient(patient: Patient) {
         this.patientsService.patientEdited.emit(patient);
-        this.patientsService.editPatient.emit();
+        this.patientsService.editMode.emit(true);
     }
 
     ngOnDestroy(): void {
-        this.addPatientSubscription.unsubscribe();
+        this.patientsChangeSubscription.unsubscribe();
     }
 }

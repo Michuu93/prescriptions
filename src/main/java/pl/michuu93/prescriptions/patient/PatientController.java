@@ -36,7 +36,13 @@ public class PatientController {
 
     @PostMapping
     public ResponseEntity<Patient> upsertPatient(@RequestBody Patient patient) {
-        Patient result = patientService.upsert(patient);
+        Patient result = patientService.upsertPatient(patient);
         return ResponseEntity.ok(result);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deletePatient(@PathVariable String id) {
+        patientService.deletePatient(id);
+        return ResponseEntity.ok().build();
     }
 }

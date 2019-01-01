@@ -7,8 +7,8 @@ import {Patient} from "./model/patient.model";
 @Injectable({providedIn: 'root'})
 export class PatientsService {
     patientEdited = new EventEmitter<Patient>();
-    editPatient = new EventEmitter();
-    patientSaved = new EventEmitter();
+    editMode = new EventEmitter<boolean>();
+    patientsChange = new EventEmitter();
 
     constructor(private http: HttpClient) {
     }
@@ -23,5 +23,9 @@ export class PatientsService {
 
     savePatient(patient: Patient): Observable<Patient> {
         return this.http.post<Patient>(`/api/patients/`, patient);
+    }
+
+    deletePatient(patient: Patient): Observable<Response> {
+        return this.http.delete(`/api/patients/${patient.id}`);
     }
 }

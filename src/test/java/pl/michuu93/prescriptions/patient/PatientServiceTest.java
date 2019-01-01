@@ -87,6 +87,6 @@ public class PatientServiceTest extends AbstractTest {
     private Patient upsertExamplePatient(String exampleFileName) throws IOException, URISyntaxException {
         String patientString = loadExample("patient/" + exampleFileName);
         Patient patient = objectMapper.readValue(patientString, Patient.class);
-        return patientService.upsert(patient);
+        return patientService.upsertPatient(patient);
     }
 }

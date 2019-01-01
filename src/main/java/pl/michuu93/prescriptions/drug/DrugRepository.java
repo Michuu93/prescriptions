@@ -19,4 +19,6 @@ interface DrugRepository extends JpaRepository<Drug, String> {
     int updateActivityInAll(@Param("isActive") boolean isActive);
 
     Page<Drug> getAllByActiveTrue(Pageable pageable);
+
+    Page<Drug> findByNameContainingIgnoreCaseAndActiveTrue(Pageable pageable, String name);
 }

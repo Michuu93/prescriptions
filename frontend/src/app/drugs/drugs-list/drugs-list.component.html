@@ -1,3 +1,6 @@
+<mat-form-field>
+    <input matInput (keyup.enter)="getDrugsPage()" placeholder="Name" #searchValue>
+</mat-form-field>
 <div class="mat-elevation-z8">
     <div class="loader" *ngIf="isLoadingResults">
         <mat-spinner></mat-spinner>
@@ -41,7 +44,7 @@
             [pageIndex]="pageIndex"
             [pageSize]="pageSize"
             [pageSizeOptions]="pageSizeOptions"
-            (page)="loadDrugsPage($event.pageIndex, $event.pageSize)"
+            (page)="getDrugsPage($event.pageIndex, $event.pageSize)"
             showFirstLastButtons>
     </mat-paginator>
 </div>

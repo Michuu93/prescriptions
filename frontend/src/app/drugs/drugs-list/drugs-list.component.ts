@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Drug} from "../model/drug.model";
 import {DrugsService} from "../drugs.service";
-import {MatTableDataSource} from "@angular/material";
+import {MatPaginator, MatTableDataSource} from "@angular/material";
 import {DrugsPage} from "../model/drugs-page.model";
 
 @Component({
@@ -12,10 +12,12 @@ import {DrugsPage} from "../model/drugs-page.model";
 export class DrugsListComponent implements OnInit {
     displayedColumns: string[] = ['bl7', 'ean', 'name', 'internationalName', 'price'];
     dataSource = new MatTableDataSource<Drug>();
+    @ViewChild('searchValue') searchInput: ElementRef;
+    @ViewChild(MatPaginator) paginator: MatPaginator;
 
-    pageIndex: number;
-    pageSize: number;
-    pageSizeOptions: number[] = [5, 10, 20, 50];
+    pageIndex: number = 0;
+    pageSize: number = 15;
+    pageSizeOptions: number[] = [5, 15, 10, 20, 50];
     resultsLength: number;
     isLoadingResults = false;
 
@@ -23,18 +25,14 @@ export class DrugsListComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.firstLoadDrugPage();
+        this.getDrugsPage(this.pageIndex, this.pageSize);
     }
 
-    firstLoadDrugPage() {
-        this.pageIndex = 0;
-        this.pageSize = 10;
-        this.loadDrugsPage(this.pageIndex, this.pageSize);
-    }
-
-    loadDrugsPage(pageIndex, pageSize) {
+    getDrugsPage(pageIndex: number = 0, pageSize: number = this.paginator.pageSize) {
         this.isLoadingResults = true;
-        this.drugsService.getDrugsPage(pageIndex, pageSize)
+        let searchName = this.searchInput.nativeElement.value.trim();
+        this.paginator.pageIndex = pageIndex;
+        this.drugsService.getDrugsPage(pageIndex, pageSize, searchName)
             .subscribe(
                 (response: DrugsPage) => {
                     this.dataSource.data = response.content;

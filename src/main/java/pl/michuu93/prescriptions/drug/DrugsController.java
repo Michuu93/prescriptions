@@ -23,6 +23,11 @@ public class DrugsController {
         return drugService.getDrugs(pageable);
     }
 
+    @GetMapping("/search/{name}")
+    public Page<Drug> getDrugs(Pageable pageable, @PathVariable String name) {
+        return drugService.getDrugsByName(pageable, name);
+    }
+
     @GetMapping("/{bl7}")
     public ResponseEntity<Drug> getDrugByBl7(@PathVariable String bl7) {
         Optional<Drug> optionalMovie = drugService.getDrugByBl7(bl7);

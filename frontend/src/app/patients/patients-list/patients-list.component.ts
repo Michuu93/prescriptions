@@ -14,9 +14,9 @@ export class PatientsListComponent implements OnInit, OnDestroy {
     dataSource = new MatTableDataSource<Patient>();
     addPatientSubscription: Subscription;
 
-    pageIndex: number;
-    pageSize: number;
-    pageSizeOptions: number[] = [5, 10, 20, 50];
+    pageIndex: number = 0;
+    pageSize: number = 15;
+    pageSizeOptions: number[] = [5, 10, 15, 20, 50];
     resultsLength: number;
     isLoadingResults = false;
 
@@ -24,19 +24,13 @@ export class PatientsListComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.firstLoadDrugPage();
+        this.getPatientsPage(this.pageIndex, this.pageSize);
         this.addPatientSubscription = this.patientsService.patientSaved.subscribe(() => {
-            this.loadPatientsPage(this.pageIndex, this.pageSize);
+            this.getPatientsPage(this.pageIndex, this.pageSize);
         });
     }
 
-    firstLoadDrugPage() {
-        this.pageIndex = 0;
-        this.pageSize = 10;
-        this.loadPatientsPage(this.pageIndex, this.pageSize);
-    }
-
-    loadPatientsPage(pageIndex, pageSize) {
+    getPatientsPage(pageIndex, pageSize) {
         this.isLoadingResults = true;
         this.patientsService.getPatientsPage(pageIndex, pageSize)
             .subscribe(

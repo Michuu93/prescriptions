@@ -1,3 +1,10 @@
 <div class="component-container">
-    <app-drugs-list></app-drugs-list>
+    <mat-tab-group mat-stretch-tabs [(selectedIndex)]="selectedTab" class="mat-elevation-z8">
+        <mat-tab label="List">
+            <app-drugs-list></app-drugs-list>
+        </mat-tab>
+        <mat-tab label="Details" [disabled]="!detailsMode">
+            <app-drugs-details></app-drugs-details>
+        </mat-tab>
+    </mat-tab-group>
 </div>

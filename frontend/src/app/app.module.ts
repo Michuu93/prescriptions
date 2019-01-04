@@ -19,6 +19,7 @@ import {PatientsListComponent} from "./patients/patients-list/patients-list.comp
 import {PatientsEditComponent} from "./patients/patients-edit/patients-edit.component";
 import {PrescriptionsListComponent} from "./prescriptions/prescriptions-list/prescriptions-list.component";
 import {PrescriptionsEditComponent} from "./prescriptions/prescriptions-edit/prescriptions-edit.component";
+import {DrugsDetailsComponent} from "./drugs/drugs-details/drugs-details.component";
 
 @NgModule({
     declarations: [
@@ -29,6 +30,7 @@ import {PrescriptionsEditComponent} from "./prescriptions/prescriptions-edit/pre
         PrescriptionsEditComponent,
         DrugsComponent,
         DrugsListComponent,
+        DrugsDetailsComponent,
         PatientsComponent,
         PatientsListComponent,
         PatientsEditComponent,

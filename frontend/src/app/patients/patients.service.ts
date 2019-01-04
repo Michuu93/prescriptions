@@ -25,7 +25,7 @@ export class PatientsService {
         return this.http.post<Patient>(`/api/patients/`, patient);
     }
 
-    deletePatient(patient: Patient): Observable<Response> {
+    deletePatient(patient: Patient): Observable<any> {
         return this.http.delete(`/api/patients/${patient.id}`);
     }
 }

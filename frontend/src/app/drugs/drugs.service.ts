@@ -1,10 +1,15 @@
 import {Observable} from "rxjs";
 import {DrugsPage} from "./model/drugs-page.model";
 import {HttpClient} from "@angular/common/http";
-import {Injectable} from "@angular/core";
+import {EventEmitter, Injectable} from "@angular/core";
+import {Drug} from "./model/drug.model";
 
 @Injectable({providedIn: 'root'})
 export class DrugsService {
+    detailsMode = new EventEmitter<boolean>();
+    drugSelected = new EventEmitter<Drug>();
+    drugsChange = new EventEmitter();
+
     constructor(private http: HttpClient) {
     }
 

@@ -1,0 +1,20 @@
+form {
+  max-width: 40%;
+  padding-top: 20px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin: auto;
+  .checkbox-section {
+    margin-bottom: 20px;
+    .checkbox {
+      margin-right: 20px;
+    }
+  }
+}
+
+.refundsTab {
+  width: 40%;
+  padding: 10px 0 20px 0;
+  margin: auto;
+}

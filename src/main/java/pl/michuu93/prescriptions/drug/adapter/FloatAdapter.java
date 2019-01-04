@@ -1,4 +1,4 @@
-package pl.michuu93.prescriptions.drug;
+package pl.michuu93.prescriptions.drug.adapter;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 

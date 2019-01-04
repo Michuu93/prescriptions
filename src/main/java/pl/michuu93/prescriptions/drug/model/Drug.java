@@ -2,7 +2,8 @@ package pl.michuu93.prescriptions.drug.model;
 
 import lombok.Data;
 import org.hibernate.annotations.ColumnDefault;
-import pl.michuu93.prescriptions.drug.FloatAdapter;
+import pl.michuu93.prescriptions.drug.adapter.BooleanAdapter;
+import pl.michuu93.prescriptions.drug.adapter.FloatAdapter;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.*;
@@ -23,14 +24,17 @@ public class Drug {
     @XmlAttribute(name = "EAN")
     private String ean;
 
+    @XmlJavaTypeAdapter(BooleanAdapter.class)
     @XmlAttribute(name = "psychotrop")
-    private boolean psychotrope;
+    private Boolean psychotrope;
 
+    @XmlJavaTypeAdapter(BooleanAdapter.class)
     @XmlAttribute(name = "senior")
-    private boolean senior;
+    private Boolean senior;
 
+    @XmlJavaTypeAdapter(BooleanAdapter.class)
     @XmlAttribute(name = "szczepionka")
-    private boolean vaccine;
+    private Boolean vaccine;
 
     @XmlJavaTypeAdapter(FloatAdapter.class)
     @XmlAttribute(name = "cena")
@@ -59,4 +63,16 @@ public class Drug {
     @XmlTransient
     @ColumnDefault("false")
     private boolean active = true;
+
+    public boolean isPsychotrope() {
+        return psychotrope;
+    }
+
+    public boolean isSenior() {
+        return senior;
+    }
+
+    public boolean isVaccine() {
+        return vaccine;
+    }
 }

@@ -77,13 +77,6 @@ public class PatientServiceTest extends AbstractTest {
         upsertExamplePatient("valid_passport_no_birthdate.json");
     }
 
-    @Test
-    public void shouldThrowInvalidBirthdate() throws IOException, URISyntaxException {
-        exceptionRule.expect(BirthdateException.class);
-        exceptionRule.expectMessage("Invalid birthdate");
-        upsertExamplePatient("valid_personal_id_invalid_birthdate.json");
-    }
-
     private Patient upsertExamplePatient(String exampleFileName) throws IOException, URISyntaxException {
         String patientString = loadExample("patient/" + exampleFileName);
         Patient patient = objectMapper.readValue(patientString, Patient.class);

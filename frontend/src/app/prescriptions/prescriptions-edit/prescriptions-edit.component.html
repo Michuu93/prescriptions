@@ -1,7 +1,45 @@
-<form #patientForm="ngForm">
+<form #prescriptionForm="ngForm">
     <div class="form-buttons">
         <button mat-raised-button color="primary" (click)="openPatients()">Search Patient</button>
         <button mat-raised-button color="primary" (click)="openDrugs()">Search Drug</button>
     </div>
-    <p>{{ selectedPatient | json }}</p>
+
+    <ng-container *ngIf="selectedPatient">
+        <mat-form-field>
+            <input matInput placeholder="First Name" [ngModel]="selectedPatient?.firstName" name="firstName" readonly>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Last Name" [ngModel]="selectedPatient?.lastName" name="lastName" readonly>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Birthdate" [ngModel]="selectedPatient?.birthdate" name="birthdate" readonly>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Address" [ngModel]="selectedPatient?.address" name="address" readonly>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="NFZ Department" [ngModel]="selectedPatient?.nfz" name="nfz" readonly>
+        </mat-form-field>
+    </ng-container>
+
+    <mat-accordion *ngIf="selectedDrugs.size" class="drugs-container">
+        <mat-expansion-panel *ngFor="let drug of selectedDrugs | keyvalue" (opened)="setDrugDetails(drug.value)">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    {{ drug.value.name }}
+                </mat-panel-title>
+                <mat-panel-description>
+                    {{ drug.value.internationalName }}
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <app-drugs-details [dataSource]="dataSource" [selectedDrug]="selectedDrug"></app-drugs-details>
+        </mat-expansion-panel>
+    </mat-accordion>
+
+    <div class="form-buttons">
+        <button mat-raised-button color="primary" [disabled]="!prescriptionForm.valid">{{ editMode ? 'Update' : 'Save' }}</button>
+        <button mat-raised-button color="accent">Print</button>
+        <button mat-raised-button color="secondary">Reset</button>
+    </div>
 </form>

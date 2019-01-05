@@ -27,8 +27,8 @@ public class PatientService {
         return patientRepository.findAll(pageable);
     }
 
-    Page<Patient> getPatientsByIdOrLastName(Pageable pageable, String searchValue) {
-        return patientRepository.findByIdContainingIgnoreCaseOrLastNameContainingIgnoreCase(pageable, searchValue, searchValue);
+    Page<Patient> getPatientsByIdOrLastName(Pageable pageable, String idOrLastName) {
+        return patientRepository.findByIdContainingIgnoreCaseOrLastNameContainingIgnoreCase(pageable, idOrLastName, idOrLastName);
     }
 
     Optional<Patient> findById(String id) {
@@ -44,7 +44,7 @@ public class PatientService {
         if (isNull(patient.getBirthdate())) {
             throw new BirthdateException("No birthdate");
         }
-        return patientRepository.saveAndFlush(patient);
+        return patientRepository.save(patient);
     }
 
     void deletePatient(String id) {

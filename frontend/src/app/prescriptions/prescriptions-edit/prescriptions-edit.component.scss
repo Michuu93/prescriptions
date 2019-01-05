@@ -5,12 +5,29 @@ form {
   justify-content: center;
   flex-direction: column;
   margin: auto;
-}
 
-.form-buttons {
-  margin: auto;
-  button {
-    width: 150px;
-    margin: 0 0 0 20px;
+  .form-buttons {
+    margin: auto;
+    button {
+      width: 150px;
+      margin: 0 0 0 20px;
+    }
+  }
+
+  .drugs-container {
+    margin: 20px 0;
+
+    .mat-expansion-panel-spacing {
+      margin: 0;
+      border-radius: 0;
+    }
+
+    ::ng-deep .drug-details {
+      max-width: 100%;
+    }
+
+    ::ng-deep .refunds-tab {
+      width: 100%;
+    }
   }
 }

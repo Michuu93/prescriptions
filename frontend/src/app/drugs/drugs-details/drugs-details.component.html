@@ -1,4 +1,4 @@
-<form #drugForm="ngForm">
+<form class="drug-details">
     <mat-form-field>
         <input matInput placeholder="BL7" [ngModel]="selectedDrug?.bl7" name="bl7" readonly>
     </mat-form-field>
@@ -31,7 +31,7 @@
     </mat-form-field>
 </form>
 
-<div *ngIf="dataSource.data.length != 0" class="refundsTab">
+<div *ngIf="dataSource.data.length != 0" class="refunds-tab">
     Refunds
     <table mat-table [dataSource]="dataSource">
         <!-- level Column -->

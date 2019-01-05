@@ -1,4 +1,4 @@
-import {Component, Inject, LOCALE_ID, OnDestroy, OnInit} from '@angular/core';
+import {Component, Inject, Input, LOCALE_ID, OnDestroy, OnInit} from '@angular/core';
 import {MatSnackBar, MatTableDataSource} from "@angular/material";
 import {Subscription} from "rxjs";
 import {DrugsService} from "../drugs.service";
@@ -11,10 +11,9 @@ import {Refund} from "../model/refund.model";
     styleUrls: ['./drugs-details.component.scss']
 })
 export class DrugsDetailsComponent implements OnInit, OnDestroy {
-    // @ViewChild('patientForm') patientForm: NgForm;
     displayedColumns: string[] = ['level', 'description'];
-    dataSource = new MatTableDataSource<Refund>();
-    selectedDrug: Drug;
+    @Input() dataSource = new MatTableDataSource<Refund>();
+    @Input() selectedDrug: Drug;
     selectedDrugSubscription: Subscription;
     detailsModeSubscription: Subscription;
     detailsMode: boolean;

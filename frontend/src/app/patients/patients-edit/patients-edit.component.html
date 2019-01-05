@@ -34,7 +34,7 @@
         <input matInput placeholder="NFZ Department" [(ngModel)]="editedPatient.nfz" name="nfz" required>
     </mat-form-field>
     <div class="form-buttons">
-        <button mat-raised-button color="primary" (click)="savePatient()" [disabled]="!patientForm.valid">Save</button>
+        <button mat-raised-button color="primary" (click)="savePatient()" [disabled]="!patientForm.valid">{{ editMode ? 'Update' : 'Save' }}</button>
         <button mat-raised-button color="secondary" (click)="resetForm()">Reset</button>
         <button mat-raised-button color="accent" (click)="deletePatient()" *ngIf="editMode">Delete</button>
     </div>

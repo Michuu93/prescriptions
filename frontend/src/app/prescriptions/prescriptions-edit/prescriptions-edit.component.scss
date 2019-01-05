@@ -29,5 +29,15 @@ form {
     ::ng-deep .refunds-tab {
       width: 100%;
     }
+
+    .delete-button-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      button {
+        margin: auto;
+      }
+    }
   }
 }

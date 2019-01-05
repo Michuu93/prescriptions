@@ -4,7 +4,7 @@
         <button mat-raised-button color="primary" (click)="openDrugs()">Search Drug</button>
     </div>
 
-    <ng-container *ngIf="selectedPatient">
+    <ng-container >
         <mat-form-field>
             <input matInput placeholder="First Name" [ngModel]="selectedPatient?.firstName" name="firstName" readonly>
         </mat-form-field>
@@ -33,13 +33,17 @@
                 </mat-panel-description>
             </mat-expansion-panel-header>
 
-            <app-drugs-details [dataSource]="dataSource" [selectedDrug]="selectedDrug"></app-drugs-details>
+            <app-drugs-details [dataSource]="dataSource" [selectedDrug]="selectedDrugDetails"></app-drugs-details>
+
+            <div class="delete-button-wrapper">
+                <button mat-raised-button color="accent" (click)="deleteSelectedDrug(drug.value.bl7)">Delete</button>
+            </div>
         </mat-expansion-panel>
     </mat-accordion>
 
     <div class="form-buttons">
         <button mat-raised-button color="primary" [disabled]="!prescriptionForm.valid">{{ editMode ? 'Update' : 'Save' }}</button>
         <button mat-raised-button color="accent">Print</button>
-        <button mat-raised-button color="secondary">Reset</button>
+        <button mat-raised-button color="secondary" (click)="reset()">Reset</button>
     </div>
 </form>

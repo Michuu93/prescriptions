@@ -31,7 +31,7 @@ export class PrescriptionsEditComponent implements OnInit, OnDestroy {
     editModeSubscription: Subscription;
     editMode: boolean;
     dataSource = new MatTableDataSource<Refund>();
-    selectedDrug: Drug;
+    selectedDrugDetails: Drug;
 
     constructor(public dialog: MatDialog, private prescriptionsService: PrescriptionsService, private patientsService: PatientsService, private drugsService: DrugsService) {
     }
@@ -75,9 +75,17 @@ export class PrescriptionsEditComponent implements OnInit, OnDestroy {
     }
 
     setDrugDetails(drug: Drug) {
-        this.selectedDrug = drug;
+        this.selectedDrugDetails = drug;
         this.dataSource.data = drug.refunds;
+    }
 
+    deleteSelectedDrug(bl7: string) {
+        this.selectedDrugs.delete(bl7);
+    }
+
+    reset() {
+        this.selectedPatient = undefined;
+        this.selectedDrugs.clear();
     }
 
     ngOnDestroy(): void {

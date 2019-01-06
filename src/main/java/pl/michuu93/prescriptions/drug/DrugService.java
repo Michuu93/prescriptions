@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.michuu93.prescriptions.drug.model.Drug;
 
 import java.util.List;
@@ -30,6 +31,7 @@ public class DrugService {
         return drugRepository.findById(bl7);
     }
 
+    @Transactional
     DrugsUpdateResponse updateDrugs(List<Drug> drugs) {
         int updatedCount = drugRepository.updateActivityInAll(false);
         List<Drug> updatedList = drugRepository.saveAll(drugs);
@@ -37,7 +39,7 @@ public class DrugService {
                 .inactivated(updatedCount)
                 .active(updatedList.size())
                 .build();
-        log.debug("Update drugs list [{}]", result);
+        log.debug("Updated drugs list [{}]", result);
         return result;
     }
 }

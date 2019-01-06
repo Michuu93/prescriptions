@@ -1,29 +1,52 @@
-<form #prescriptionForm="ngForm">
+<form>
     <div class="form-buttons">
         <button mat-raised-button color="primary" (click)="openPatients()">Search Patient</button>
         <button mat-raised-button color="primary" (click)="openDrugs()">Search Drug</button>
     </div>
 
-    <ng-container >
+    <mat-form-field *ngIf="editedPrescription.date">
+        <input matInput placeholder="Date" [ngModel]="editedPrescription.date" name="date"
+               readonly>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-select placeholder="Permission" [(value)]="editedPrescription.additionalPermissions">
+            <mat-option *ngFor="let permission of prescriptionPermissions" [value]="permission">
+                {{ permission }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-select placeholder="Type" [(value)]="editedPrescription.prescriptionType">
+            <mat-option *ngFor="let type of prescriptionTypes" [value]="type">
+                {{ type }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <ng-container *ngIf="editedPrescription.patient">
         <mat-form-field>
-            <input matInput placeholder="First Name" [ngModel]="selectedPatient?.firstName" name="firstName" readonly>
+            <input matInput placeholder="First Name" [ngModel]="editedPrescription.patient?.firstName" name="firstName"
+                   readonly>
         </mat-form-field>
         <mat-form-field>
-            <input matInput placeholder="Last Name" [ngModel]="selectedPatient?.lastName" name="lastName" readonly>
+            <input matInput placeholder="Last Name" [ngModel]="editedPrescription.patient?.lastName" name="lastName"
+                   readonly>
         </mat-form-field>
         <mat-form-field>
-            <input matInput placeholder="Birthdate" [ngModel]="selectedPatient?.birthdate" name="birthdate" readonly>
+            <input matInput placeholder="Birthdate" [ngModel]="editedPrescription.patient?.birthdate" name="birthdate"
+                   readonly>
         </mat-form-field>
         <mat-form-field>
-            <input matInput placeholder="Address" [ngModel]="selectedPatient?.address" name="address" readonly>
+            <input matInput placeholder="Address" [ngModel]="editedPrescription.patient?.address" name="address" readonly>
         </mat-form-field>
         <mat-form-field>
-            <input matInput placeholder="NFZ Department" [ngModel]="selectedPatient?.nfz" name="nfz" readonly>
+            <input matInput placeholder="NFZ Department" [ngModel]="editedPrescription.patient?.nfz" name="nfz" readonly>
         </mat-form-field>
     </ng-container>
 
-    <mat-accordion *ngIf="selectedDrugs.size" class="drugs-container">
-        <mat-expansion-panel *ngFor="let drug of selectedDrugs | keyvalue" (opened)="setDrugDetails(drug.value)">
+    <mat-accordion class="drugs-container" *ngIf="drugsMap?.size">
+        <mat-expansion-panel *ngFor="let drug of drugsMap | keyvalue"
+                             (opened)="setDrugDetails(drug.value)">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     {{ drug.value.name }}
@@ -42,8 +65,10 @@
     </mat-accordion>
 
     <div class="form-buttons">
-        <button mat-raised-button color="primary" [disabled]="!prescriptionForm.valid">{{ editMode ? 'Update' : 'Save' }}</button>
-        <button mat-raised-button color="accent">Print</button>
+        <button mat-raised-button color="primary" (click)="savePrescription()">{{ editMode ? 'Update' : 'Save'
+            }}
+        </button>
+        <button mat-raised-button color="accent" [disabled]="!editMode">Print</button>
         <button mat-raised-button color="secondary" (click)="reset()">Reset</button>
     </div>
 </form>

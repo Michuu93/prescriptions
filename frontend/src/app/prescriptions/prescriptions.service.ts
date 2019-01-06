@@ -14,7 +14,7 @@ export class PrescriptionsService {
     }
 
     getPrescriptionsPage(page: number, size: number, patientId: string): Observable<PrescriptionsPage> {
-        if (name) {
+        if (patientId) {
             return this.http.get<PrescriptionsPage>(`/api/prescriptions/search/${patientId}/?page=${page}&size=${size}`);
         } else {
             return this.http.get<PrescriptionsPage>(`/api/prescriptions/?page=${page}&size=${size}`);
@@ -24,10 +24,6 @@ export class PrescriptionsService {
     savePrescription(prescription: Prescription): Observable<Prescription> {
         return this.http.post<Prescription>(`/api/prescriptions/`, prescription);
     }
-
-    // deletePrescription(prescription: Prescription): Observable<any> {
-    //     return this.http.delete(`/api/prescriptions/${prescription.id}`);
-    // }
 
     printPrescription(prescription: Prescription) {
 

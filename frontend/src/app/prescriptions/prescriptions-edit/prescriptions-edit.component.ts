@@ -1,15 +1,13 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {MatDialog, MatDialogConfig, MatDialogRef, MatTableDataSource} from "@angular/material";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {MatDialog, MatDialogConfig, MatDialogRef, MatSnackBar, MatTableDataSource} from "@angular/material";
 import {PatientsListComponent} from "../../patients/patients-list/patients-list.component";
 import {DrugsListComponent} from "../../drugs/drugs-list/drugs-list.component";
 import {PatientsService} from "../../patients/patients.service";
 import {Subscription} from "rxjs";
-import {Patient} from "../../patients/model/patient.model";
 import {DrugsService} from "../../drugs/drugs.service";
 import {Drug} from "../../drugs/model/drug.model";
-import {Prescription} from "../model/prescription-model";
+import {Prescription, PrescriptionType, PrescriptionPermissions} from "../model/prescription-model";
 import {PrescriptionsService} from "../prescriptions.service";
-import {NgForm} from "@angular/forms";
 import {Refund} from "../../drugs/model/refund.model";
 
 @Component({
@@ -18,22 +16,25 @@ import {Refund} from "../../drugs/model/refund.model";
     styleUrls: ['./prescriptions-edit.component.scss']
 })
 export class PrescriptionsEditComponent implements OnInit, OnDestroy {
-    @ViewChild('prescriptionForm') prescriptionForm: NgForm;
     dialogConfig: MatDialogConfig;
     patientDialog: MatDialogRef<PatientsListComponent, any>;
     drugDialog: MatDialogRef<DrugsListComponent, any>;
     selectPatientSubscription: Subscription;
     selectDrugSubscription: Subscription;
-    selectedPatient: Patient;
-    selectedDrugs = new Map();
     editedPrescription: Prescription = new Prescription();
     editedPrescriptionSubscription: Subscription;
     editModeSubscription: Subscription;
     editMode: boolean;
     dataSource = new MatTableDataSource<Refund>();
     selectedDrugDetails: Drug;
+    prescriptionPermissions: string[];
+    prescriptionTypes: string[];
+    drugsMap: Map<string, Drug> = new Map();
 
-    constructor(public dialog: MatDialog, private prescriptionsService: PrescriptionsService, private patientsService: PatientsService, private drugsService: DrugsService) {
+    constructor(public dialog: MatDialog, private prescriptionsService: PrescriptionsService,
+                private patientsService: PatientsService, private drugsService: DrugsService, private snackBar: MatSnackBar) {
+        this.prescriptionPermissions = Object.keys(PrescriptionPermissions).filter(key => !Number(key)).slice(1);
+        this.prescriptionTypes = Object.keys(PrescriptionType).filter(key => !Number(key)).slice(1);
     }
 
     ngOnInit() {
@@ -44,19 +45,23 @@ export class PrescriptionsEditComponent implements OnInit, OnDestroy {
 
         this.selectPatientSubscription = this.patientsService.patientEdited.subscribe(
             patient => {
-                this.selectedPatient = patient;
+                this.editedPrescription.patient = patient;
                 this.patientDialog.close();
             }
         );
         this.selectDrugSubscription = this.drugsService.drugSelected.subscribe(
             drug => {
-                this.selectedDrugs.set(drug.bl7, drug);
+                this.drugsMap.set(drug.bl7, drug);
                 this.drugDialog.close();
             }
         );
         this.editedPrescriptionSubscription = this.prescriptionsService.prescriptionsEdited.subscribe(
             prescription => {
                 this.editedPrescription = prescription;
+                this.drugsMap.clear();
+                prescription.drugs.forEach(drug => {
+                    this.drugsMap.set(drug.bl7, drug);
+                });
             }
         );
         this.editModeSubscription = this.prescriptionsService.editMode.subscribe(
@@ -80,12 +85,29 @@ export class PrescriptionsEditComponent implements OnInit, OnDestroy {
     }
 
     deleteSelectedDrug(bl7: string) {
-        this.selectedDrugs.delete(bl7);
+        this.drugsMap.delete(bl7);
+    }
+
+    savePrescription() {
+        this.editedPrescription.drugs = Array.from(this.drugsMap.values());
+        this.prescriptionsService.savePrescription(this.editedPrescription)
+            .subscribe(
+                (response: Prescription) => {
+                    console.log("Save prescription: " + JSON.stringify(response));
+                    this.prescriptionsService.prescriptionsChange.emit();
+                    this.prescriptionsService.editMode.emit(true);
+                    this.snackBar.open('Prescription saved!');
+                },
+                error => {
+                    console.log("Error when saving prescription: " + JSON.stringify(error));
+                    this.snackBar.open('Error when saving prescription!');
+                });
     }
 
     reset() {
-        this.selectedPatient = undefined;
-        this.selectedDrugs.clear();
+        this.editedPrescription = new Prescription();
+        this.drugsMap.clear();
+        this.prescriptionsService.editMode.emit(false);
     }
 
     ngOnDestroy(): void {

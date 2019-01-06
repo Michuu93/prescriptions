@@ -8,5 +8,6 @@ import pl.michuu93.prescriptions.prescription.model.Prescription;
 
 @Repository
 interface PrescriptionRepository extends JpaRepository<Prescription, String> {
-    Page<Prescription> findByPatient_Id(Pageable pageable, String patientId);
+    Page<Prescription> findAllByOrderByDateDesc(Pageable pageable);
+    Page<Prescription> findByPatientIdContainingOrderByDateDesc(Pageable pageable, String patientId);
 }

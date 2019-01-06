@@ -2,16 +2,18 @@ package pl.michuu93.prescriptions.prescription.model;
 
 import lombok.Data;
 import pl.michuu93.prescriptions.doctor.Doctor;
+import pl.michuu93.prescriptions.drug.model.Drug;
 import pl.michuu93.prescriptions.office.OfficeData;
 import pl.michuu93.prescriptions.patient.model.Patient;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @Entity
 public class Prescription {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
     @ManyToOne(targetEntity = Patient.class)
     private Patient patient;
@@ -24,4 +26,9 @@ public class Prescription {
     private PrescriptionPermissions additionalPermissions = PrescriptionPermissions.X;
     @Enumerated(EnumType.STRING)
     private PrescriptionCategory prescriptionCategory;
+    @Enumerated(EnumType.STRING)
+    private PrescriptionType prescriptionType;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Drug> drugs;
+    private LocalDate date;
 }

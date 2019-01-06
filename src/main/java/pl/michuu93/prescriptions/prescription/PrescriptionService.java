@@ -8,7 +8,11 @@ import pl.michuu93.prescriptions.prescription.model.Prescription;
 import pl.michuu93.prescriptions.prescription.model.PrescriptionNumber;
 import pl.michuu93.prescriptions.prescription.model.PrescriptionNumberList;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
+
+import static java.util.Objects.isNull;
 
 @Slf4j
 @Service
@@ -25,19 +29,29 @@ public class PrescriptionService {
         List<PrescriptionNumber> numbers = prescriptionNumbers.getPrescriptionNumbers();
         List<PrescriptionNumber> savedNumbers = prescriptionNumberRepository.saveAll(numbers);
         int savedNumber = savedNumbers.size();
-        log.debug("Add prescription numbers [size={}]", savedNumber);
+        log.debug("Added prescription numbers [size={}]", savedNumber);
         return savedNumber;
     }
 
     Page<Prescription> getPrescriptions(Pageable pageable) {
-        return prescriptionRepository.findAll(pageable);
+        return prescriptionRepository.findAllByOrderByDateDesc(pageable);
     }
 
     Page<Prescription> getPrescriptionsByPatientId(Pageable pageable, String patientId) {
-        return prescriptionRepository.findByPatient_Id(pageable, patientId);
+        return prescriptionRepository.findByPatientIdContainingOrderByDateDesc(pageable, patientId);
     }
 
-    Prescription savePrescription(Prescription prescription) {
+    Prescription upsertPrescription(Prescription prescription) {
+        if (isNull(prescription.getDate())) {
+            prescription.setDate(LocalDate.now());
+
+        }
+        if (isNull(prescription.getId())) {
+            prescription.setId(UUID.randomUUID().toString());
+            log.info("Saving prescription {}", prescription);
+        } else {
+            log.info("Upserting prescription {}", prescription);
+        }
         return prescriptionRepository.save(prescription);
     }
 }

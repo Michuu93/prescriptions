@@ -35,8 +35,8 @@ public class PrescriptionController {
     }
 
     @PostMapping
-    public ResponseEntity<Prescription> savePrescription(@RequestBody Prescription prescription) {
-        Prescription result = prescriptionService.savePrescription(prescription);
+    public ResponseEntity<Prescription> upsertPrescription(@RequestBody Prescription prescription) {
+        Prescription result = prescriptionService.upsertPrescription(prescription);
         return ResponseEntity.ok(result);
     }
 }

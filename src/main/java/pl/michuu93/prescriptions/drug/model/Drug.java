@@ -13,7 +13,8 @@ import java.util.List;
 @Data
 @Entity
 @Table(indexes = {
-        @Index(columnList = "name")
+        @Index(columnList = "name"),
+        @Index(columnList = "bl7")
 })
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Drug {

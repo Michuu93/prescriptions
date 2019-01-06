@@ -3,7 +3,6 @@ import {MatPaginator, MatSnackBar, MatTableDataSource} from "@angular/material";
 import {Prescription} from "../model/prescription-model";
 import {Subscription} from "rxjs";
 import {PrescriptionsService} from "../prescriptions.service";
-import {Patient} from "../../patients/model/patient.model";
 
 @Component({
     selector: 'app-prescriptions-list',
@@ -11,7 +10,7 @@ import {Patient} from "../../patients/model/patient.model";
     styleUrls: ['./prescriptions-list.component.scss']
 })
 export class PrescriptionsListComponent implements OnInit, OnDestroy {
-    displayedColumns: string[] = ['id'];
+    displayedColumns: string[] = ['patientId', 'patientName', 'drugsNumber', 'date'];
     dataSource = new MatTableDataSource<Prescription>();
     prescriptionsChangeSubscription: Subscription;
     @ViewChild('searchValue') searchInput: ElementRef;
@@ -54,8 +53,8 @@ export class PrescriptionsListComponent implements OnInit, OnDestroy {
             });
     }
 
-    editPrescription(patient: Patient) {
-        this.prescriptionsService.prescriptionsEdited.emit(patient);
+    editPrescription(prescription: Prescription) {
+        this.prescriptionsService.prescriptionsEdited.emit(prescription);
         this.prescriptionsService.editMode.emit(true);
     }
 

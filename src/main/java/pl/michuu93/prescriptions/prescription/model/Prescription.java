@@ -28,7 +28,7 @@ public class Prescription {
     private PrescriptionCategory prescriptionCategory;
     @Enumerated(EnumType.STRING)
     private PrescriptionType prescriptionType;
-    @OneToMany
+    @ManyToMany
     private List<Drug> drugs;
     private LocalDate date;
 }

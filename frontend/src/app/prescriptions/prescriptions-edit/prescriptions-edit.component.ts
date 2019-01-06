@@ -95,6 +95,7 @@ export class PrescriptionsEditComponent implements OnInit, OnDestroy {
                 (response: Prescription) => {
                     console.log("Save prescription: " + JSON.stringify(response));
                     this.prescriptionsService.prescriptionsChange.emit();
+                    this.prescriptionsService.prescriptionsEdited.emit(response);
                     this.prescriptionsService.editMode.emit(true);
                     this.snackBar.open('Prescription saved!');
                 },

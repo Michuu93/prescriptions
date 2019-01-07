@@ -1,6 +1,7 @@
 package pl.michuu93.prescriptions;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.michuu93.prescriptions.drug.DrugService;
 import pl.michuu93.prescriptions.drug.DrugsUpdateResponse;
@@ -31,6 +32,14 @@ public abstract class AbstractTest {
     @Autowired
     protected DrugService drugService;
 
+    private ObjectMapper objectMapper;
+
+    @Before
+    public void initObjectMapper() {
+        this.objectMapper = new ObjectMapper();
+        objectMapper.findAndRegisterModules();
+    }
+
     protected String loadExample(String filename) throws IOException, URISyntaxException {
         var path = Paths.get(Objects.requireNonNull(ClassLoader.getSystemClassLoader().getResource(filename)).toURI());
         return Files.readString(path);
@@ -38,15 +47,11 @@ public abstract class AbstractTest {
 
     protected Patient getExamplePatient(String exampleFileName) throws IOException, URISyntaxException {
         String patientString = loadExample("patient/" + exampleFileName);
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.findAndRegisterModules();
         return objectMapper.readValue(patientString, Patient.class);
     }
 
     protected Prescription getExamplePrescription(String exampleFileName) throws IOException, URISyntaxException {
         String prescriptionString = loadExample("prescription/" + exampleFileName);
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.findAndRegisterModules();
         return objectMapper.readValue(prescriptionString, Prescription.class);
     }
 

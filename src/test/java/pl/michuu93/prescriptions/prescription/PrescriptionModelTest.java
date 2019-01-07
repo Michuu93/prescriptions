@@ -29,32 +29,30 @@ public class PrescriptionModelTest extends AbstractTest {
         assertThat(prescription.getAdditionalPermissions()).isEqualTo(PrescriptionPermissions.X);
         assertThat(prescription.getPrescriptionType()).isEqualTo(PrescriptionType.L);
 
-        var patient = Patient.builder()
-                .idType(IdentType.PERSONAL_ID)
-                .id("90090515836")
-                .address("Słoneczna 1")
-                .birthdate(LocalDate.of(1990, 9, 5))
-                .nfz("15")
-                .firstName("Jan")
-                .lastName("Nowak")
-                .build();
+        var patient = new Patient();
+        patient.setIdType(IdentType.PERSONAL_ID);
+        patient.setId("90090515836");
+        patient.setAddress("Słoneczna 1");
+        patient.setBirthdate(LocalDate.of(1990, 9, 5));
+        patient.setNfz("15");
+        patient.setFirstName("Jan");
+        patient.setLastName("Nowak");
         assertThat(prescription.getPatient()).isEqualTo(patient);
 
-        var drug = Drug.builder()
-                .bl7("3220322")
-                .ean("5909991292935")
-                .psychotrope(false)
-                .senior(false)
-                .vaccine(false)
-                .price(0F)
-                .name("Abacavir+Lamivudine Mylan")
-                .internationalName("Abacavirum, Lamivudinum")
-                .form("tabl.powl.")
-                .dose("0,6g+0,3g")
-                .packageSize("60 tabl.")
-                .refunds(Lists.emptyList())
-                .active(true)
-                .build();
+        var drug = new Drug();
+        drug.setBl7("3220322");
+        drug.setEan("5909991292935");
+        drug.setPsychotrope(false);
+        drug.setSenior(false);
+        drug.setVaccine(false);
+        drug.setPrice(0F);
+        drug.setName("Abacavir+Lamivudine Mylan");
+        drug.setInternationalName("Abacavirum, Lamivudinum");
+        drug.setForm("tabl.powl.");
+        drug.setDose("0,6g+0,3g");
+        drug.setPackageSize("60 tabl.");
+        drug.setActive(true);
+        drug.setRefunds(Lists.emptyList());
 
         assertThat(prescription.getDrugs()).hasSize(1);
         assertThat(prescription.getDrugs()).containsExactly(drug);

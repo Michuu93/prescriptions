@@ -36,7 +36,7 @@ public class PatientServiceTest extends AbstractTest {
     @Before
     public void before() {
         this.objectMapper = new ObjectMapper();
-        objectMapper.registerModule(new JavaTimeModule());
+        objectMapper.findAndRegisterModules();
     }
 
     @Test

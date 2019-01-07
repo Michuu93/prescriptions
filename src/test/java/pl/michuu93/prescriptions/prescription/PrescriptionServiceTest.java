@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.michuu93.prescriptions.AbstractTest;
 import pl.michuu93.prescriptions.drug.DrugsUpdateResponse;
 import pl.michuu93.prescriptions.drug.model.DrugsList;
+import pl.michuu93.prescriptions.patient.model.Patient;
 import pl.michuu93.prescriptions.prescription.model.Prescription;
 
 import javax.xml.bind.JAXBException;
@@ -41,12 +42,14 @@ public class PrescriptionServiceTest extends AbstractTest {
     }
 
     private void saveExamplePatient() throws IOException, URISyntaxException {
-        upsertExamplePatient(getExamplePatient("valid_personal_id_birthdate.json"));
+        Patient patient = upsertExamplePatient(getExamplePatient("valid_personal_id_birthdate.json"));
+        assertThat(patient).isNotNull();
     }
 
     private void saveExampleDrug() throws IOException, URISyntaxException, JAXBException {
         DrugsList drugs = getExampleDrugs("example_drug.xml");
         assertThat(drugs).isNotNull();
+        assertThat(drugs.getDrugs()).hasSize(1);
         DrugsUpdateResponse drugsUpdateResponse = updateDrugs(drugs.getDrugs());
         assertThat(drugsUpdateResponse).isNotNull();
     }

@@ -13,6 +13,7 @@ import pl.michuu93.prescriptions.prescription.model.PrescriptionNumberList;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import static java.util.Objects.isNull;
@@ -41,6 +42,10 @@ public class PrescriptionService {
         return savedNumber;
     }
 
+    Optional<Prescription> getPrescriptionById(String id) {
+        return prescriptionRepository.findById(id);
+    }
+
     Page<Prescription> getPrescriptions(Pageable pageable) {
         return prescriptionRepository.findAllByOrderByDateDesc(pageable);
     }
@@ -50,7 +55,7 @@ public class PrescriptionService {
     }
 
     @Transactional
-    Prescription upsertPrescription(Prescription prescription) {
+    public Prescription upsertPrescription(Prescription prescription) {
         if (isNull(prescription.getDate())) {
             prescription.setDate(LocalDate.now());
         }

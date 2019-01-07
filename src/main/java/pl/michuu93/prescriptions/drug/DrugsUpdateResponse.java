@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-class DrugsUpdateResponse {
+public class DrugsUpdateResponse {
     private int inactivated;
     private int active;
 }

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Leki>
+    <Lek BL7="3220322" EAN="5909991292935" psychotrop="False" senior="False" szczepionka="False" cena="0">
+        <Nazwa>Abacavir+Lamivudine Mylan</Nazwa>
+        <NazwaInt>Abacavirum, Lamivudinum</NazwaInt>
+        <Postać>tabl.powl.</Postać>
+        <Dawka>0,6g+0,3g</Dawka>
+        <Opakowanie>60 tabl.</Opakowanie>
+        <Refundacja />
+    </Lek>
+</Leki>

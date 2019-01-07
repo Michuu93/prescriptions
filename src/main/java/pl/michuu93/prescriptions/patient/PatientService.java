@@ -35,7 +35,7 @@ public class PatientService {
         return patientRepository.findById(id);
     }
 
-    Patient upsertPatient(Patient patient) {
+    public Patient upsertPatient(Patient patient) {
         if (IdentType.PERSONAL_ID.equals(patient.getIdType())) {
             validatePesel(patient);
             setBirthdate(patient);

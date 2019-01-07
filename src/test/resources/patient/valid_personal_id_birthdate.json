@@ -4,5 +4,6 @@
     "firstName": "Jan",
     "lastName": "Nowak",
     "address": "Słoneczna 1",
-    "birthdate": "1990-09-05"
+    "birthdate": "1990-09-05",
+    "nfz": "15"
 }

@@ -32,7 +32,7 @@ public class DrugService {
     }
 
     @Transactional
-    DrugsUpdateResponse updateDrugs(List<Drug> drugs) {
+    public DrugsUpdateResponse updateDrugs(List<Drug> drugs) {
         int updatedCount = drugRepository.updateActivityInAll(false);
         List<Drug> updatedList = drugRepository.saveAll(drugs);
         var result = DrugsUpdateResponse.builder()

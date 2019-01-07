@@ -6,10 +6,8 @@ import pl.michuu93.prescriptions.drug.model.Drug;
 import pl.michuu93.prescriptions.drug.model.DrugsList;
 import pl.michuu93.prescriptions.drug.model.Refund;
 
-import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
-import java.io.StringReader;
 import java.net.URISyntaxException;
 import java.util.Optional;
 
@@ -18,10 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class DrugModelTest extends AbstractTest {
     @Test
     public void shouldDeserializeXmlToObject() throws IOException, URISyntaxException, JAXBException {
-        String exampleXml = loadExample("drugs.xml");
-        var context = JAXBContext.newInstance(DrugsList.class);
-        var marshaller = context.createUnmarshaller();
-        DrugsList drugs = (DrugsList) marshaller.unmarshal(new StringReader(exampleXml));
+        DrugsList drugs = getExampleDrugs("drugs.xml");
         assertThat(drugs.getDrugs()).hasSize(51497);
 
         Optional<Drug> optionalDrug = drugs.getDrugs().stream().filter(d -> d.getBl7().equals("3275422")).findAny();

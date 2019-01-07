@@ -1,5 +1,6 @@
 package pl.michuu93.prescriptions.drug.model;
 
+import lombok.Builder;
 import lombok.Data;
 import org.hibernate.annotations.ColumnDefault;
 import pl.michuu93.prescriptions.drug.adapter.BooleanAdapter;
@@ -11,6 +12,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.List;
 
 @Data
+@Builder
 @Entity
 @Table(indexes = {
         @Index(columnList = "name"),

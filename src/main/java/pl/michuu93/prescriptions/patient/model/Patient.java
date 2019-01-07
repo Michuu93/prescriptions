@@ -1,12 +1,14 @@
 package pl.michuu93.prescriptions.patient.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Data
+@Builder
 @Entity
 @Table(indexes = {
         @Index(columnList = "id"),

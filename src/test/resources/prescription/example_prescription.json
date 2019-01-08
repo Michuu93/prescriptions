@@ -1,0 +1,30 @@
+{
+  "patient":
+  {
+    "id":"90090515836",
+    "idType":"PERSONAL_ID",
+    "firstName":"Jan",
+    "lastName":"Nowak",
+    "birthdate":"1990-09-05",
+    "address":"Słoneczna 1",
+    "nfz":"15"
+  },
+  "additionalPermissions":"X",
+  "prescriptionType":"L",
+  "drugs":
+  [
+    {
+      "bl7":"3220322",
+      "ean":"5909991292935",
+      "psychotrope":false,
+      "senior":false,
+      "vaccine":false,
+      "price":0,
+      "name":"Abacavir+Lamivudine Mylan",
+      "internationalName":"Abacavirum, Lamivudinum",
+      "form":"tabl.powl.",
+      "dose":"0,6g+0,3g",
+      "packageSize":"60 tabl."
+    }
+  ]
+}

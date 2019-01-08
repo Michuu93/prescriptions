@@ -33,7 +33,6 @@ export class PatientsEditComponent implements OnInit, OnDestroy {
             patient => {
                 this.editedPatient = patient;
                 this.datePicker = patient.birthdate;
-                this.editMode = true;
             }
         );
         this.editModeSubscription = this.patientsService.editMode.subscribe(

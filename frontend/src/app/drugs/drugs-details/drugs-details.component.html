@@ -1,0 +1,52 @@
+<form class="drug-details">
+    <mat-form-field>
+        <input matInput placeholder="BL7" [ngModel]="selectedDrug?.bl7" name="bl7" readonly>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="EAN" [ngModel]="selectedDrug?.ean" name="ean" readonly>
+    </mat-form-field>
+    <section class="checkbox-section">
+        <mat-checkbox class="checkbox" [ngModel]="selectedDrug?.psychotrope" name="psychotrope" onclick="return false">Psychotrope</mat-checkbox>
+        <mat-checkbox class="checkbox" [ngModel]="selectedDrug?.senior" name="senior" onclick="return false">Senior</mat-checkbox>
+        <mat-checkbox class="checkbox" [ngModel]="selectedDrug?.vaccine" name="vaccine" onclick="return false">Vaccine</mat-checkbox>
+    </section>
+    <mat-form-field>
+        <input matInput placeholder="Price" [ngModel]="selectedDrug?.price" name="price" readonly>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Name" [ngModel]="selectedDrug?.name" name="name" readonly>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="International Name" [ngModel]="selectedDrug?.internationalName"
+               name="internationalName" readonly>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Form" [ngModel]="selectedDrug?.form" name="form" readonly>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Dose" [ngModel]="selectedDrug?.dose" name="dose" readonly>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Package Size" [ngModel]="selectedDrug?.packageSize" name="packageSize" readonly>
+    </mat-form-field>
+</form>
+
+<div *ngIf="dataSource.data.length != 0" class="refunds-tab">
+    Refunds
+    <table mat-table [dataSource]="dataSource">
+        <!-- level Column -->
+        <ng-container matColumnDef="level">
+            <th mat-header-cell *matHeaderCellDef>Level</th>
+            <td mat-cell *matCellDef="let element"> {{element.level}}</td>
+        </ng-container>
+
+        <!-- description Column -->
+        <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef>Description</th>
+            <td mat-cell *matCellDef="let element"> {{element.description}}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>

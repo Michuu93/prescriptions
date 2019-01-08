@@ -1,11 +1,11 @@
 package pl.michuu93.prescriptions.prescription;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import pl.michuu93.prescriptions.prescription.model.Prescription;
 import pl.michuu93.prescriptions.prescription.model.PrescriptionNumberList;
 
 @Slf4j
@@ -22,5 +22,21 @@ public class PrescriptionController {
     public ResponseEntity<Integer> savePrescriptionNumbers(@RequestBody PrescriptionNumberList prescriptionNumbers) {
         int savedNumber = prescriptionService.saveNumbers(prescriptionNumbers);
         return ResponseEntity.ok(savedNumber);
+    }
+
+    @GetMapping
+    public Page<Prescription> getPrescriptions(Pageable pageable) {
+        return prescriptionService.getPrescriptions(pageable);
+    }
+
+    @GetMapping("/search/{patientId}")
+    public Page<Prescription> getPrescriptions(Pageable pageable, @PathVariable String patientId) {
+        return prescriptionService.getPrescriptionsByPatientId(pageable, patientId);
+    }
+
+    @PostMapping
+    public ResponseEntity<Prescription> upsertPrescription(@RequestBody Prescription prescription) {
+        Prescription result = prescriptionService.upsertPrescription(prescription);
+        return ResponseEntity.ok(result);
     }
 }

@@ -1,17 +1,19 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Drug} from "../model/drug.model";
 import {DrugsService} from "../drugs.service";
 import {MatPaginator, MatTableDataSource} from "@angular/material";
 import {DrugsPage} from "../model/drugs-page.model";
+import {Subscription} from "rxjs";
 
 @Component({
     selector: 'app-drugs-list',
     templateUrl: './drugs-list.component.html',
     styleUrls: ['./drugs-list.component.scss']
 })
-export class DrugsListComponent implements OnInit {
+export class DrugsListComponent implements OnInit, OnDestroy {
     displayedColumns: string[] = ['bl7', 'ean', 'name', 'internationalName', 'price'];
     dataSource = new MatTableDataSource<Drug>();
+    drugsChangeSubscription: Subscription;
     @ViewChild('searchValue') searchInput: ElementRef;
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -26,6 +28,9 @@ export class DrugsListComponent implements OnInit {
 
     ngOnInit() {
         this.getDrugsPage(this.pageIndex, this.pageSize);
+        this.drugsChangeSubscription = this.drugsService.drugsChange.subscribe(() => {
+            this.getDrugsPage(this.pageIndex, this.pageSize);
+        });
     }
 
     getDrugsPage(pageIndex: number = 0, pageSize: number = this.paginator.pageSize) {
@@ -44,5 +49,14 @@ export class DrugsListComponent implements OnInit {
             .add(() => {
                 this.isLoadingResults = false;
             });
+    }
+
+    drugDetails(drug: Drug) {
+        this.drugsService.drugSelected.emit(drug);
+        this.drugsService.detailsMode.emit(true);
+    }
+
+    ngOnDestroy(): void {
+        this.drugsChangeSubscription.unsubscribe();
     }
 }

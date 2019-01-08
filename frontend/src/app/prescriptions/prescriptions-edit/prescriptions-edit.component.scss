@@ -5,12 +5,54 @@ form {
   justify-content: center;
   flex-direction: column;
   margin: auto;
-}
 
-.form-buttons {
-  margin: auto;
-  button {
-    width: 150px;
-    margin: 0 0 0 20px;
+  .form-buttons {
+    margin: auto;
+    button {
+      width: 150px;
+      margin: 0 0 0 20px;
+    }
+  }
+
+  .drugs-container {
+    margin: 20px 0;
+
+    .mat-expansion-panel-spacing {
+      margin: 0;
+      border-radius: 0;
+    }
+
+    .mat-content {
+      justify-content: space-between;
+    }
+
+    .mat-expansion-panel-header-description {
+      margin: 0 25px 0 0;
+      flex-grow: 0;
+    }
+
+    .mat-expansion-panel-header-title
+    {
+      margin: 0 auto 0 0;
+      flex-grow: 0;
+    }
+
+    ::ng-deep .drug-details {
+      max-width: 100%;
+    }
+
+    ::ng-deep .refunds-tab {
+      width: 100%;
+    }
+
+    .delete-button-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      button {
+        margin: auto;
+      }
+    }
   }
 }

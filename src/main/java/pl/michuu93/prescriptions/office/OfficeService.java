@@ -14,7 +14,7 @@ public class OfficeService {
         this.officeRepository = officeRepository;
     }
 
-    OfficeData getOfficeData() {
+    public OfficeData getOfficeData() {
         List<OfficeData> officeData = officeRepository.findAll();
         return officeData.isEmpty() ? null : officeData.get(0);
     }

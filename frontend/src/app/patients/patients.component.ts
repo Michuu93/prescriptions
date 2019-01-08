@@ -8,7 +8,7 @@ import {Subscription} from "rxjs";
     styleUrls: ['./patients.component.scss']
 })
 export class PatientsComponent implements OnInit, OnDestroy {
-    selectedIndex;
+    selectedTab;
     editMode: boolean;
     editModeSubscription: Subscription;
 
@@ -19,7 +19,7 @@ export class PatientsComponent implements OnInit, OnDestroy {
         this.editModeSubscription = this.patientsService.editMode.subscribe(
             (editMode: boolean) => {
                 if (editMode) {
-                    this.selectedIndex = 1;
+                    this.selectedTab = 1;
                 }
                 this.editMode = editMode;
             }

@@ -1,2 +1,1 @@
-# prescriptions
-A simple project for university subject.
+# Prescriptions Manager

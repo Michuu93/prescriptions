@@ -1,15 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Subscription} from "rxjs";
+import {PrescriptionsService} from "./prescriptions.service";
 
 @Component({
-  selector: 'app-prescriptions',
-  templateUrl: './prescriptions.component.html',
-  styleUrls: ['./prescriptions.component.scss']
+    selector: 'app-prescriptions',
+    templateUrl: './prescriptions.component.html',
+    styleUrls: ['./prescriptions.component.scss']
 })
-export class PrescriptionsComponent implements OnInit {
+export class PrescriptionsComponent implements OnInit, OnDestroy {
+    selectedTab;
+    editMode: boolean;
+    editModeSubscription: Subscription;
 
-  constructor() { }
+    constructor(private prescriptionsService: PrescriptionsService) {
+    }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+        this.editModeSubscription = this.prescriptionsService.editMode.subscribe(
+            (editMode: boolean) => {
+                if (editMode) {
+                    this.selectedTab = 1;
+                }
+                this.editMode = editMode;
+            }
+        );
+    }
 
+    ngOnDestroy(): void {
+        this.editModeSubscription.unsubscribe();
+    }
 }

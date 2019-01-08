@@ -1,7 +1,7 @@
 <form>
     <div class="form-buttons">
         <button mat-raised-button color="primary" (click)="openPatients()">Search Patient</button>
-        <button mat-raised-button color="primary" (click)="openDrugs()">Search Drug</button>
+        <button mat-raised-button color="primary" [disabled]="drugsMap?.size >= 5" (click)="openDrugs()">Search Drug</button>
     </div>
 
     <mat-form-field *ngIf="editedPrescription.date">
@@ -68,7 +68,7 @@
         <button mat-raised-button color="primary" (click)="savePrescription()">{{ editMode ? 'Update' : 'Save'
             }}
         </button>
-        <button mat-raised-button color="accent" [disabled]="!editMode">Print</button>
+        <button mat-raised-button color="accent" [disabled]="!editMode" (click)="printPreview()">Preview</button>
         <button mat-raised-button color="secondary" (click)="reset()">Reset</button>
     </div>
 </form>

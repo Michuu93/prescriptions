@@ -9,6 +9,7 @@ import {Drug} from "../../drugs/model/drug.model";
 import {Prescription, PrescriptionType, PrescriptionPermissions} from "../model/prescription-model";
 import {PrescriptionsService} from "../prescriptions.service";
 import {Refund} from "../../drugs/model/refund.model";
+import {PrescriptionPreviewComponent} from "../prescription-preview/prescription-preview.component";
 
 @Component({
     selector: 'app-prescriptions-edit',
@@ -103,6 +104,12 @@ export class PrescriptionsEditComponent implements OnInit, OnDestroy {
                     console.log("Error when saving prescription: " + JSON.stringify(error));
                     this.snackBar.open('Error when saving prescription!');
                 });
+    }
+
+    printPreview() {
+        let dialogRef = this.dialog.open(PrescriptionPreviewComponent);
+        let dialogInstance = dialogRef.componentInstance;
+        dialogInstance.printedPrescription = this.editedPrescription;
     }
 
     reset() {

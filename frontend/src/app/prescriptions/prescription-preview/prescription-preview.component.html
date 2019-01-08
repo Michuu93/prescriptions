@@ -1,0 +1,114 @@
+<div class="print-preview-container">
+    <div id="print-area">
+
+
+        <div class="prescription-body">
+            <div class="prescription-header">
+                <div class="header-left">
+                    <b>Recepta</b>
+                </div>
+                <div class="header-right">
+                    <b>{{ printedPrescription.prescriptionNumber }}</b>
+                </div>
+
+
+            </div>
+
+            <div class="prescription-patient">
+                <div class="patient-left">
+                    <b>Pacjent</b>
+
+                    <div class="patient-details">
+                        <p>{{ printedPrescription.patient.firstName }} {{ printedPrescription.patient.lastName }}</p>
+                        <p>{{ printedPrescription.patient.address }}</p>
+                    </div>
+
+
+                </div>
+                <div class="patient-right">
+                    <div class="nfz">
+                        Oddział NFZ
+                        <div class="nfz-value">
+                            {{ printedPrescription.patient.nfz }}
+                        </div>
+                    </div>
+                    <div class="permissions">
+                        Uprawnienia
+                        <div class="permissions-value">
+                            {{ printedPrescription.additionalPermissions }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="prescription-drugs">
+                <div class="drugs-header">
+                    <div class="drugs-header-left">
+                        Rp.
+                    </div>
+                    <div class="drugs-header-right">
+                        Odpłatność
+                    </div>
+                </div>
+                <div class="drugs-item">
+                    <div class="drugs-item-left">{{ printedPrescription.drugs[0]?.name }}</div>
+                    <div class="drugs-item-right">{{ printedPrescription.drugs[0]?.bl7 }}</div>
+                </div>
+                <div class="drugs-item">
+                    <div class="drugs-item-left">{{ printedPrescription.drugs[1]?.name }}</div>
+                    <div class="drugs-item-right">{{ printedPrescription.drugs[1]?.bl7 }}</div>
+                </div>
+                <div class="drugs-item">
+                    <div class="drugs-item-left">{{ printedPrescription.drugs[2]?.name }}</div>
+                    <div class="drugs-item-right">{{ printedPrescription.drugs[2]?.bl7 }}</div>
+                </div>
+                <div class="drugs-item">
+                    <div class="drugs-item-left">{{ printedPrescription.drugs[3]?.name }}</div>
+                    <div class="drugs-item-right">{{ printedPrescription.drugs[3]?.bl7 }}</div>
+                </div>
+                <div class="drugs-item">
+                    <div class="drugs-item-left">{{ printedPrescription.drugs[4]?.name }}</div>
+                    <div class="drugs-item-right">{{ printedPrescription.drugs[4]?.bl7 }}</div>
+                </div>
+                <div class="drugs-footer">
+                    <ngx-barcode
+                            [bc-value]="printedPrescription.prescriptionNumber"
+                            [bc-display-value]="true"
+                            [bc-text-align]="'right'"
+                            [bc-font-size]="10"
+                            [bc-width]="2.5"
+                            [bc-height]="35"
+                            [bc-margin]="0"
+                            [bc-margin-top]="5"
+                            [bc-margin-bottom]="5"
+                            [bc-margin-left]="5"
+                            [bc-margin-right]="5"
+                    ></ngx-barcode>
+                </div>
+            </div>
+
+            <div class="prescription-footer">
+                <div class="footer-left">
+
+                    <div class="date">
+                        Data wystawienia
+                        <div class="date-value">
+                            {{ printedPrescription.date }}
+                        </div>
+                    </div>
+                    <div class="date-exp">
+                        Data realizacji od dnia
+                        <div class="date-exp-value">
+                            X
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-right">
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <button mat-raised-button color="accent" class="print-button" (click)="print()">Print</button>
+</div>

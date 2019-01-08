@@ -24,8 +24,4 @@ export class PrescriptionsService {
     savePrescription(prescription: Prescription): Observable<Prescription> {
         return this.http.post<Prescription>(`/api/prescriptions/`, prescription);
     }
-
-    printPrescription(prescription: Prescription) {
-
-    }
 }

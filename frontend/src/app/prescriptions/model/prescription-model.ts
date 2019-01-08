@@ -3,6 +3,7 @@ import {Drug} from "../../drugs/model/drug.model";
 
 export class Prescription {
     public id: string;
+    public prescriptionNumber: string;
     public patient: Patient;
     public additionalPermissions = 'X';
     public prescriptionType = 'L';

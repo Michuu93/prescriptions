@@ -22,6 +22,21 @@ form {
       border-radius: 0;
     }
 
+    .mat-content {
+      justify-content: space-between;
+    }
+
+    .mat-expansion-panel-header-description {
+      margin: 0 25px 0 0;
+      flex-grow: 0;
+    }
+
+    .mat-expansion-panel-header-title
+    {
+      margin: 0 auto 0 0;
+      flex-grow: 0;
+    }
+
     ::ng-deep .drug-details {
       max-width: 100%;
     }

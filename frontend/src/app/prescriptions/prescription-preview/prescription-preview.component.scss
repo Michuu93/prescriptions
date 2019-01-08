@@ -10,8 +10,8 @@
   }
 }
 
-$border: black solid 0.1mm;
-$border-dashed: black dashed 0.1mm;
+$border: black solid 1px;
+$border-dashed: black dashed 1px;
 
 .prescription-body {
   width: 99mm;
@@ -62,7 +62,6 @@ $border-dashed: black dashed 0.1mm;
           align-items: center;
         }
       }
-
       .permissions {
         width: 100%;
         height: 50%;
@@ -117,9 +116,6 @@ $border-dashed: black dashed 0.1mm;
         width: 15%;
         height: 100%;
       }
-    }
-    .drugs-footer {
-
     }
   }
   .prescription-footer {

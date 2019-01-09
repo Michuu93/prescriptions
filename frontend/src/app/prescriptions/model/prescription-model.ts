@@ -9,6 +9,7 @@ export class Prescription {
     public prescriptionType = 'L';
     public drugs: Drug[];
     public date: string;
+    public dateFromDay: string;
 }
 
 export enum PrescriptionPermissions {

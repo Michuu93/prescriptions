@@ -43,23 +43,49 @@
                 </div>
                 <div class="drugs-item">
                     <div class="drugs-item-left">{{ printedPrescription.drugs[0]?.name }}</div>
-                    <div class="drugs-item-right">{{ printedPrescription.drugs[0]?.bl7 }}</div>
+                    <div class="drugs-item-right">
+                        <ng-container *ngFor="let refund0 of printedPrescription.drugs[0]?.refunds; let i0 = index">
+                            {{ refund0.level }}{{i0 === printedPrescription.drugs[0]?.refunds?.length - 1 ? '' : ', '}}
+                        </ng-container>
+                        {{ printedPrescription.drugs[0]?.refunds.length === 0 ? '100%' : '' }}
+                    </div>
                 </div>
                 <div class="drugs-item">
                     <div class="drugs-item-left">{{ printedPrescription.drugs[1]?.name }}</div>
-                    <div class="drugs-item-right">{{ printedPrescription.drugs[1]?.bl7 }}</div>
+                    <div class="drugs-item-right">
+                        <ng-container *ngFor="let refund1 of printedPrescription.drugs[1]?.refunds; let i1 = index">
+                            {{ refund1.level }}{{i1 === printedPrescription.drugs[1]?.refunds?.length - 1 ? '' : ', '}}
+                        </ng-container>
+                        {{ printedPrescription.drugs[1]?.refunds.length === 0 ? '100%' : '' }}
+                    </div>
                 </div>
                 <div class="drugs-item">
                     <div class="drugs-item-left">{{ printedPrescription.drugs[2]?.name }}</div>
-                    <div class="drugs-item-right">{{ printedPrescription.drugs[2]?.bl7 }}</div>
+                    <div class="drugs-item-right">
+                        <ng-container *ngFor="let refund2 of printedPrescription.drugs[2]?.refunds; let i2 = index">
+                            {{ refund2.level }}{{i2 === printedPrescription.drugs[2]?.refunds?.length - 1 ? '' : ', '}}
+                        </ng-container>
+                        {{ printedPrescription.drugs[2]?.refunds.length === 0 ? '100%' : '' }}
+                    </div>
                 </div>
                 <div class="drugs-item">
                     <div class="drugs-item-left">{{ printedPrescription.drugs[3]?.name }}</div>
-                    <div class="drugs-item-right">{{ printedPrescription.drugs[3]?.bl7 }}</div>
+                    <div class="drugs-item-right">
+                        <ng-container *ngFor="let refund3 of printedPrescription.drugs[3]?.refunds; let i3 = index">
+                            {{ refund3.level }}{{i3 === printedPrescription.drugs[3]?.refunds?.length - 1 ? '' : ', '}}
+                        </ng-container>
+                        {{ printedPrescription.drugs[3]?.refunds.length === 0 ? '100%' : '' }}
+                    </div>
                 </div>
                 <div class="drugs-item">
                     <div class="drugs-item-left">{{ printedPrescription.drugs[4]?.name }}</div>
-                    <div class="drugs-item-right">{{ printedPrescription.drugs[4]?.bl7 }}</div>
+                    <div class="drugs-item-right">
+                        <ng-container *ngFor="let refund4 of printedPrescription.drugs[4]?.refunds; let i4 = index">
+                            {{ refund4.level }}{{i4 === printedPrescription.drugs[4]?.refunds?.length - 1 ? '' : ', '}}
+                        </ng-container>
+                        <ng-container *ngIf="printedPrescription.drugs[4]?.refunds.length === 0">100%</ng-container>
+                        {{ printedPrescription.drugs[4]?.refunds.length === 0 ? '100%' : '' }}
+                    </div>
                 </div>
                 <ngx-barcode
                         [bc-value]="printedPrescription.prescriptionNumber"
@@ -83,10 +109,10 @@
                             {{ printedPrescription.date }}
                         </div>
                     </div>
-                    <div class="date-exp">
+                    <div class="date-from-day">
                         Data realizacji od dnia
-                        <div class="date-exp-value">
-                            X
+                        <div class="date-from-day-value">
+                            {{ printedPrescription.dateFromDay ? printedPrescription.dateFromDay : 'X' }}
                         </div>
                     </div>
                 </div>

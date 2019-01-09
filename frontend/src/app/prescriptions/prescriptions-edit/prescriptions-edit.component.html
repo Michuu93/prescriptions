@@ -9,6 +9,16 @@
                readonly>
     </mat-form-field>
     <mat-form-field>
+        <input matInput
+               [min]="minDateFromDay"
+               [matDatepicker]="picker"
+               placeholder="Date (from day)"
+               [(ngModel)]="datePicker"
+               name="dateFromDay">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
         <mat-select placeholder="Permission" [(value)]="editedPrescription.additionalPermissions">
             <mat-option *ngFor="let permission of prescriptionPermissions" [value]="permission">
                 {{ permission }}

@@ -1,6 +1,7 @@
 package pl.michuu93.prescriptions.prescription;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -56,17 +57,40 @@ public class PrescriptionService {
 
     @Transactional
     public Prescription upsertPrescription(Prescription prescription) {
-        if (isNull(prescription.getDate())) {
-            prescription.setDate(LocalDate.now());
-        }
+        fillPrescription(prescription);
         if (isNull(prescription.getId())) {
             prescription.setId(UUID.randomUUID().toString());
             log.info("Saving prescription {}", prescription);
         } else {
             log.info("Upserting prescription {}", prescription);
         }
-        prescription.setOfficeData(officeService.getOfficeData());
-        prescription.setDoctor(doctorService.getDoctor());
         return prescriptionRepository.save(prescription);
+    }
+
+    private void fillPrescription(Prescription prescription) {
+        setPrescriptionNumber(prescription);
+        setPrescriptionDate(prescription);
+        setOfficeData(prescription);
+        setDoctor(prescription);
+    }
+
+    private void setDoctor(Prescription prescription) {
+        prescription.setDoctor(doctorService.getDoctor());
+    }
+
+    private void setOfficeData(Prescription prescription) {
+        prescription.setOfficeData(officeService.getOfficeData());
+    }
+
+    private void setPrescriptionDate(Prescription prescription) {
+        if (isNull(prescription.getDate())) {
+            prescription.setDate(LocalDate.now());
+        }
+    }
+
+    private void setPrescriptionNumber(Prescription prescription) {
+        if (isNull(prescription.getPrescriptionNumber())) {
+            prescription.setPrescriptionNumber(RandomStringUtils.randomNumeric(20));
+        }
     }
 }

@@ -11,21 +11,40 @@
             </div>
             <div class="prescription-patient">
                 <div class="patient-left">
-                    <b>Pacjent</b>
-                    <div class="patient-details">
-                        <p>{{ printedPrescription.patient.firstName }} {{ printedPrescription.patient.lastName }}</p>
-                        <p>{{ printedPrescription.patient.address }}</p>
+                    <div class="patient-title">
+                        Pacjent
+                    </div>
+                    <div class="patient-value">
+                        {{ printedPrescription.patient.firstName }} {{ printedPrescription.patient.lastName }}
+                        <br/>
+                        wiek: {{ patientAge }} (lat)
+                        <br/>
+                        {{ printedPrescription.patient.address }}
+                    </div>
+                    <div class="patient-footer">
+                        <div class="patient-footer-left">
+                            {{ printedPrescription.patient.idType === 'PERSONAL_ID' ? 'PESEL:' : '' }}
+                            {{ printedPrescription.patient.idType === 'PARENT_ID' ? 'PESEL RODZICA:' : '' }}
+                            {{ printedPrescription.patient.idType === 'PASSPORT_NUMBER' ? 'NR PASZPORTU:' : '' }}
+                        </div>
+                        <div class="patient-footer-right">
+                            {{ printedPrescription.patient.id }}
+                        </div>
                     </div>
                 </div>
                 <div class="patient-right">
                     <div class="nfz">
-                        Oddział NFZ
+                        <div class="nfz-title">
+                            Oddział NFZ
+                        </div>
                         <div class="nfz-value">
                             {{ printedPrescription.patient.nfz }}
                         </div>
                     </div>
                     <div class="permissions">
-                        Uprawnienia
+                        <div class="permissions-title">
+                            Uprawnienia
+                        </div>
                         <div class="permissions-value">
                             {{ printedPrescription.additionalPermissions }}
                         </div>
@@ -42,7 +61,12 @@
                     </div>
                 </div>
                 <div class="drugs-item">
-                    <div class="drugs-item-left">{{ printedPrescription.drugs[0]?.name }}</div>
+                    <div class="drugs-item-left">
+                        {{ printedPrescription.drugs[0]?.name }}
+                        {{ printedPrescription.drugs[0]?.dose }}
+                        <br/>
+                        {{ printedPrescription.drugs[0]?.packageSize }}
+                    </div>
                     <div class="drugs-item-right">
                         <ng-container *ngFor="let refund0 of printedPrescription.drugs[0]?.refunds; let i0 = index">
                             {{ refund0.level }}{{i0 === printedPrescription.drugs[0]?.refunds?.length - 1 ? '' : ', '}}
@@ -51,7 +75,12 @@
                     </div>
                 </div>
                 <div class="drugs-item">
-                    <div class="drugs-item-left">{{ printedPrescription.drugs[1]?.name }}</div>
+                    <div class="drugs-item-left">
+                        {{ printedPrescription.drugs[1]?.name }}
+                        {{ printedPrescription.drugs[1]?.dose }}
+                        <br/>
+                        {{ printedPrescription.drugs[1]?.packageSize }}
+                    </div>
                     <div class="drugs-item-right">
                         <ng-container *ngFor="let refund1 of printedPrescription.drugs[1]?.refunds; let i1 = index">
                             {{ refund1.level }}{{i1 === printedPrescription.drugs[1]?.refunds?.length - 1 ? '' : ', '}}
@@ -60,7 +89,12 @@
                     </div>
                 </div>
                 <div class="drugs-item">
-                    <div class="drugs-item-left">{{ printedPrescription.drugs[2]?.name }}</div>
+                    <div class="drugs-item-left">
+                        {{ printedPrescription.drugs[2]?.name }}
+                        {{ printedPrescription.drugs[2]?.dose }}
+                        <br/>
+                        {{ printedPrescription.drugs[2]?.packageSize }}
+                    </div>
                     <div class="drugs-item-right">
                         <ng-container *ngFor="let refund2 of printedPrescription.drugs[2]?.refunds; let i2 = index">
                             {{ refund2.level }}{{i2 === printedPrescription.drugs[2]?.refunds?.length - 1 ? '' : ', '}}
@@ -69,7 +103,12 @@
                     </div>
                 </div>
                 <div class="drugs-item">
-                    <div class="drugs-item-left">{{ printedPrescription.drugs[3]?.name }}</div>
+                    <div class="drugs-item-left">
+                        {{ printedPrescription.drugs[3]?.name }}
+                        {{ printedPrescription.drugs[3]?.dose }}
+                        <br/>
+                        {{ printedPrescription.drugs[3]?.packageSize }}
+                    </div>
                     <div class="drugs-item-right">
                         <ng-container *ngFor="let refund3 of printedPrescription.drugs[3]?.refunds; let i3 = index">
                             {{ refund3.level }}{{i3 === printedPrescription.drugs[3]?.refunds?.length - 1 ? '' : ', '}}
@@ -78,39 +117,50 @@
                     </div>
                 </div>
                 <div class="drugs-item">
-                    <div class="drugs-item-left">{{ printedPrescription.drugs[4]?.name }}</div>
+                    <div class="drugs-item-left">
+                        {{ printedPrescription.drugs[4]?.name }}
+                        {{ printedPrescription.drugs[4]?.dose }}
+                        <br/>
+                        {{ printedPrescription.drugs[4]?.packageSize }}
+                    </div>
                     <div class="drugs-item-right">
                         <ng-container *ngFor="let refund4 of printedPrescription.drugs[4]?.refunds; let i4 = index">
                             {{ refund4.level }}{{i4 === printedPrescription.drugs[4]?.refunds?.length - 1 ? '' : ', '}}
                         </ng-container>
-                        <ng-container *ngIf="printedPrescription.drugs[4]?.refunds.length === 0">100%</ng-container>
                         {{ printedPrescription.drugs[4]?.refunds.length === 0 ? '100%' : '' }}
                     </div>
                 </div>
-                <ngx-barcode
-                        [bc-value]="printedPrescription.prescriptionNumber"
-                        [bc-display-value]="true"
-                        [bc-text-align]="'right'"
-                        [bc-font-size]="10"
-                        [bc-width]="2.5"
-                        [bc-height]="35"
-                        [bc-margin]="0"
-                        [bc-margin-top]="5"
-                        [bc-margin-bottom]="5"
-                        [bc-margin-left]="5"
-                        [bc-margin-right]="5"
-                ></ngx-barcode>
+                <div class="prescription-number-barcode">
+                    <ngx-barcode
+                            [bc-value]="printedPrescription.prescriptionNumber"
+                            [bc-element-type]="'svg'"
+                            [bc-display-value]="true"
+                            [bc-text-align]="'right'"
+                            [bc-font-size]="10"
+                            [bc-width]="2.5"
+                            [bc-height]="34"
+                            [bc-margin]="0"
+                            [bc-margin-top]="0"
+                            [bc-margin-bottom]="0"
+                            [bc-margin-left]="0"
+                            [bc-margin-right]="0"
+                    ></ngx-barcode>
+                </div>
             </div>
             <div class="prescription-footer">
                 <div class="footer-left">
                     <div class="date">
-                        Data wystawienia
+                        <div class="date-title">
+                            Data wystawienia
+                        </div>
                         <div class="date-value">
                             {{ printedPrescription.date }}
                         </div>
                     </div>
                     <div class="date-from-day">
-                        Data realizacji od dnia
+                        <div class="date-from-day-title">
+                            Data realizacji od dnia
+                        </div>
                         <div class="date-from-day-value">
                             {{ printedPrescription.dateFromDay ? printedPrescription.dateFromDay : 'X' }}
                         </div>

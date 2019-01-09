@@ -9,6 +9,7 @@ import {PrescriptionPrinterStyle} from "./prescription-printer-style";
 })
 export class PrescriptionPreviewComponent implements OnInit, OnDestroy {
     printedPrescription: Prescription;
+    patientAge: number;
 
     constructor() {
     }
@@ -17,7 +18,9 @@ export class PrescriptionPreviewComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.printedPrescription.prescriptionNumber = "01234567890123456789";
+        let birthdate = Date.parse(this.printedPrescription.patient.birthdate);
+        let timeDiff = Math.abs(Date.now() - birthdate);
+        this.patientAge = Math.floor((timeDiff / (1000 * 3600 * 24))/365);
     }
 
     print() {

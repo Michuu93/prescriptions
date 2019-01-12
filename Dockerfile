@@ -1,8 +1,7 @@
 ### Build ###
 FROM maven:3.6.0-jdk-11-slim as BUILDER
-WORKDIR /
-COPY pom.xml src/ frontend/ ./
-RUN mvn package
+COPY . /usr/src/app/
+RUN mvn -f /usr/src/app/pom.xml clean package
 
 ### Run ###
 FROM openjdk:13-jdk-alpine

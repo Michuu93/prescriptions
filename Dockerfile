@@ -6,6 +6,6 @@ RUN mvn -f /usr/src/app/pom.xml clean package
 ### Run ###
 FROM openjdk:13-jdk-alpine
 WORKDIR /
-COPY --from=BUILDER /target/prescriptions*.jar /prescriptions.jar
+COPY --from=BUILDER /usr/src/app/target/prescriptions*.jar /prescriptions.jar
 EXPOSE 8080
-CMD ["java","-jar","prescriptions.jar"]
+CMD ["java","-jar","-Dspring.profiles.active=docker","prescriptions.jar"]

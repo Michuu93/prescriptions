@@ -1,5 +1,11 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {MatDialog, MatDialogConfig, MatDialogRef, MatSnackBar, MatTableDataSource} from "@angular/material";
+import {Component, Inject, LOCALE_ID, OnDestroy, OnInit} from '@angular/core';
+import {
+    MatDialog,
+    MatDialogConfig,
+    MatDialogRef,
+    MatSnackBar,
+    MatTableDataSource
+} from "@angular/material";
 import {PatientsListComponent} from "../../patients/patients-list/patients-list.component";
 import {DrugsListComponent} from "../../drugs/drugs-list/drugs-list.component";
 import {PatientsService} from "../../patients/patients.service";
@@ -10,6 +16,7 @@ import {Prescription, PrescriptionType, PrescriptionPermissions} from "../model/
 import {PrescriptionsService} from "../prescriptions.service";
 import {Refund} from "../../drugs/model/refund.model";
 import {PrescriptionPreviewComponent} from "../prescription-preview/prescription-preview.component";
+import {formatDate} from "@angular/common";
 
 @Component({
     selector: 'app-prescriptions-edit',
@@ -31,9 +38,12 @@ export class PrescriptionsEditComponent implements OnInit, OnDestroy {
     prescriptionPermissions: string[];
     prescriptionTypes: string[];
     drugsMap: Map<string, Drug> = new Map();
+    datePicker: Date;
+    minDateFromDay = new Date();
 
     constructor(public dialog: MatDialog, private prescriptionsService: PrescriptionsService,
-                private patientsService: PatientsService, private drugsService: DrugsService, private snackBar: MatSnackBar) {
+                private patientsService: PatientsService, private drugsService: DrugsService,
+                private snackBar: MatSnackBar, @Inject(LOCALE_ID) private locale: string) {
         this.prescriptionPermissions = Object.keys(PrescriptionPermissions).filter(key => !Number(key)).slice(1);
         this.prescriptionTypes = Object.keys(PrescriptionType).filter(key => !Number(key)).slice(1);
     }
@@ -59,6 +69,7 @@ export class PrescriptionsEditComponent implements OnInit, OnDestroy {
         this.editedPrescriptionSubscription = this.prescriptionsService.prescriptionsEdited.subscribe(
             prescription => {
                 this.editedPrescription = prescription;
+                this.datePicker = prescription.dateFromDay;
                 this.drugsMap.clear();
                 prescription.drugs.forEach(drug => {
                     this.drugsMap.set(drug.bl7, drug);
@@ -90,6 +101,9 @@ export class PrescriptionsEditComponent implements OnInit, OnDestroy {
     }
 
     savePrescription() {
+        if (this.datePicker) {
+            this.editedPrescription.dateFromDay = formatDate(this.datePicker, 'yyyy-MM-dd', this.locale);
+        }
         this.editedPrescription.drugs = Array.from(this.drugsMap.values());
         this.prescriptionsService.savePrescription(this.editedPrescription)
             .subscribe(

@@ -24,24 +24,51 @@ $border-dashed: black dashed 1px;
     border-bottom: $border;
     .header-left {
       float: left;
-      height: 100%;
-      width: 50%
+      height: calc(100% - 1mm);
+      width: calc(50% - 1mm);
+      margin: 1mm 0 0 1mm;
     }
     .header-right {
       float: right;
       font-size: 13pt;
-      height: 100%;
-      width: 50%;
+      height: calc(100% - 1mm);
+      width: calc(50% - 1mm);
       text-align: right;
+      margin: 1mm 1mm 0 0;
     }
   }
   .prescription-patient {
     height: 25%;
     border-bottom: $border;
     .patient-left {
+      position: relative;
       float: left;
       width: 70%;
       height: 100%;
+      .patient-title {
+        font-size: 8pt;
+        margin: 0 0 0 1mm;
+      }
+      .patient-value {
+        margin: 10% 0 0 1mm;
+      }
+      .patient-footer {
+        position: absolute;
+        bottom: 0;
+        width: calc(100% - 2mm);
+        margin: 1mm;
+        .patient-footer-left {
+          float: left;
+          height: 100%;
+          width: 50%
+        }
+        .patient-footer-right {
+          float: right;
+          height: 100%;
+          width: 50%;
+          text-align: right;
+        }
+      }
     }
     .patient-right {
       float: right;
@@ -53,6 +80,9 @@ $border-dashed: black dashed 1px;
         border-left: $border;
         border-bottom: $border;
         font-size: 8pt;
+        .nfz-title {
+          margin: 0 0 0 1mm;
+        }
         .nfz-value {
           font-size: 18pt;
           width: 100%;
@@ -67,6 +97,9 @@ $border-dashed: black dashed 1px;
         height: 50%;
         border-left: $border;
         font-size: 8pt;
+        .permissions-title {
+          margin: 0 0 0 1mm;
+        }
         .permissions-value {
           font-size: 18pt;
           width: 100%;
@@ -88,8 +121,9 @@ $border-dashed: black dashed 1px;
       border-bottom: $border-dashed;
       .drugs-header-left {
         float: left;
-        width: calc(85% - 1mm);
+        width: calc(85% - 2mm);
         height: 100%;
+        margin: 0 0 0 1mm;
       }
       .drugs-header-right {
         border-left: $border-dashed;
@@ -105,17 +139,21 @@ $border-dashed: black dashed 1px;
 
       .drugs-item-left {
         float: left;
-        width: calc(85% - 1mm);
+        width: calc(85% - 3mm);
         height: 100%;
+        margin: 0 1mm;
       }
       .drugs-item-right {
+        font-size: 8pt;
         border-left: $border-dashed;
-        display: flex;
-        justify-content: center;
         float: right;
-        width: 15%;
+        width: calc(15% - 1mm);
         height: 100%;
+        margin: 0 1mm 0 0;
       }
+    }
+    .prescription-number-barcode {
+      margin: 1mm;
     }
   }
   .prescription-footer {
@@ -130,6 +168,9 @@ $border-dashed: black dashed 1px;
         border-right: $border;
         border-bottom: $border;
         font-size: 8pt;
+        .date-title {
+          margin: 0 0 0 1mm;
+        }
         .date-value {
           font-size: 14pt;
           width: 100%;
@@ -139,12 +180,15 @@ $border-dashed: black dashed 1px;
           align-items: center;
         }
       }
-      .date-exp {
+      .date-from-day {
         width: 100%;
         height: 50%;
         border-right: $border;
         font-size: 8pt;
-        .date-exp-value {
+        .date-from-day-title {
+          margin: 0 0 0 1mm;
+        }
+        .date-from-day-value {
           font-size: 14pt;
           width: 100%;
           height: 80%;
@@ -161,4 +205,3 @@ $border-dashed: black dashed 1px;
     }
   }
 }
-

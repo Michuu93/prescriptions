@@ -31,4 +31,5 @@ public class Prescription {
     @ManyToMany
     private List<Drug> drugs;
     private LocalDate date;
+    private LocalDate dateFromDay;
 }

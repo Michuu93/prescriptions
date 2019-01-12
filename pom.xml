@@ -57,6 +57,11 @@
 			<artifactId>jaxb-impl</artifactId>
 			<version>2.1</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.8.1</version>
+		</dependency>
 
 		<!-- Swagger -->
 		<dependency>
@@ -106,8 +111,8 @@
 				<version>1.6</version>
 				<configuration>
 					<workingDirectory>frontend/</workingDirectory>
-					<nodeVersion>v10.14.2</nodeVersion>
-					<yarnVersion>v1.12.3</yarnVersion>
+					<nodeVersion>v10.15.0</nodeVersion>
+					<yarnVersion>v1.13.0</yarnVersion>
 				</configuration>
 				<executions>
 					<execution>
@@ -121,9 +126,6 @@
 						<goals>
 							<goal>yarn</goal>
 						</goals>
-						<configuration>
-							<arguments>install</arguments>
-						</configuration>
 					</execution>
 					<execution>
 						<id>yarn-build</id>
@@ -131,7 +133,7 @@
 							<goal>yarn</goal>
 						</goals>
 						<configuration>
-							<arguments>run build</arguments>
+							<arguments>build</arguments>
 						</configuration>
 					</execution>
 				</executions>

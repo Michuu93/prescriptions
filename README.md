@@ -16,4 +16,4 @@ on Windows: ``````java -jar "-Dspring.profiles.active=dev" prescriptions-1.0.0.j
 ##### Database
 ```docker run --name postgres -d -v ~/postgres:/var/lib/postgresql/data -p 5432:5432 -e POSTGRES_PASSWORD=qwerty -e POSTGRES_DB=db postgres:11.1-alpine``` 
 ##### Application
-```docker run --name prescriptions-manager -d -p 8080:80 --link postgres:postgres -e DB_HOST=postgres -e DB_PORT=5432 -e DB_NAME=db -e DB_USER=postgres -e DB_PASSWORD=qwerty michuu93/prescriptions-manager```
+```docker run --name prescriptions-manager -d -p 8080:80 --link postgres:postgres -e DB_HOST=postgres -e DB_PORT=5432 -e DB_NAME=db -e DB_USER=postgres -e DB_PASSWORD=qwerty -e APP_USER=doctor -e APP_PASSWORD=password michuu93/prescriptions-manager```

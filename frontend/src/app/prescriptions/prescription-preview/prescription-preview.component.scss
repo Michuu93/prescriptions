@@ -31,9 +31,6 @@ $border-dashed: black dashed 1px;
       .header-left-title {
         font-weight: bold;
       }
-      .header-left-value {
-        margin: 10% 0 0 1mm;
-      }
       .header-left-footer {
         position: absolute;
         bottom: 0;
@@ -217,6 +214,13 @@ $border-dashed: black dashed 1px;
       float: right;
       width: 70%;
       height: 100%;
+      text-align: center;
+      .footer-right-title {
+        font-size: 8pt;
+      }
+      .footer-right-value-license {
+        font-size: 8pt;
+      }
     }
   }
 }

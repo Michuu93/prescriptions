@@ -7,11 +7,11 @@
                         Recepta
                     </div>
                     <div class="header-left-value">
-                        {{ printedPrescription.officeData.name }}
+                        {{ printedPrescription.officeData?.name }}
                         <br/>
-                        {{ printedPrescription.officeData.address }}
+                        {{ printedPrescription.officeData?.address }}
                         <br/>
-                        {{ printedPrescription.officeData.regon ? printedPrescription.officeData.regon : '' }}
+                        {{ printedPrescription.officeData?.regon ? 'REGON: ' + printedPrescription.officeData?.regon : '' }}
                     </div>
                     <div class="header-left-footer">
                         Świadczeniodawca
@@ -181,6 +181,15 @@
                     </div>
                 </div>
                 <div class="footer-right">
+                    <div class="footer-right-title">
+                        Dane i podpis lekarza
+                    </div>
+                    <div class="footer-right-value">
+                        {{ printedPrescription.doctor?.firstName }} {{ printedPrescription.doctor?.lastName }}
+                        <div class="footer-right-value-license">
+                            {{ printedPrescription.doctor?.license }}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

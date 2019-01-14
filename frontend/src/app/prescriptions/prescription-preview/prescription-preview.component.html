@@ -3,10 +3,24 @@
         <div class="prescription-body">
             <div class="prescription-header">
                 <div class="header-left">
-                    <b>Recepta</b>
+                    <div class="header-left-title">
+                        Recepta
+                    </div>
+                    <div class="header-left-value">
+                        {{ printedPrescription.officeData.name }}
+                        <br/>
+                        {{ printedPrescription.officeData.address }}
+                        <br/>
+                        {{ printedPrescription.officeData.regon ? printedPrescription.officeData.regon : '' }}
+                    </div>
+                    <div class="header-left-footer">
+                        Świadczeniodawca
+                    </div>
                 </div>
                 <div class="header-right">
-                    <b>{{ printedPrescription.prescriptionNumber }}</b>
+                    <div class="header-right-title">
+                        {{ printedPrescription.prescriptionNumber }}
+                    </div>
                 </div>
             </div>
             <div class="prescription-patient">

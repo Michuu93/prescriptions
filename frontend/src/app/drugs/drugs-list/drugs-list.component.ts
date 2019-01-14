@@ -28,7 +28,7 @@ export class DrugsListComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.getDrugsPage(this.pageIndex, this.pageSize);
-        this.drugsChangeSubscription = this.drugsService.drugsChange.subscribe(() => {
+        this.drugsChangeSubscription = this.drugsService.drugsChange$.subscribe(() => {
             this.getDrugsPage(this.pageIndex, this.pageSize);
         });
     }
@@ -52,8 +52,8 @@ export class DrugsListComponent implements OnInit, OnDestroy {
     }
 
     drugDetails(drug: Drug) {
-        this.drugsService.drugSelected.emit(drug);
-        this.drugsService.detailsMode.emit(true);
+        this.drugsService.setSelectedDrug(drug);
+        this.drugsService.setDetailsMode(true);
     }
 
     ngOnDestroy(): void {

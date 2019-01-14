@@ -5,7 +5,7 @@ import {Subscription} from "rxjs";
 @Component({
     selector: 'app-patients',
     templateUrl: './patients.component.html',
-    styleUrls: ['./patients.component.scss']
+    styles: []
 })
 export class PatientsComponent implements OnInit, OnDestroy {
     selectedTab;
@@ -16,7 +16,7 @@ export class PatientsComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.editModeSubscription = this.patientsService.editMode.subscribe(
+        this.editModeSubscription = this.patientsService.editMode$.subscribe(
             (editMode: boolean) => {
                 if (editMode) {
                     this.selectedTab = 1;

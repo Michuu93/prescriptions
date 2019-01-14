@@ -16,7 +16,7 @@ export class DrugsUploaderService {
     onSuccessItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
         let data = JSON.parse(response);
         this.snackBar.open('Successfully upload ' + data.active + ' drugs!');
-        this.drugsService.drugsChange.emit();
+        this.drugsService.refreshDrugs();
     }
 
     onErrorItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {

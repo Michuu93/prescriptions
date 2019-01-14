@@ -6,7 +6,6 @@ spring:
 
 server:
   port: 8080
-
 spring:
   profiles: dev
   datasource:
@@ -29,7 +28,9 @@ logging:
     org.springframework.web: DEBUG
     org.hibernate: ERROR
     pl.michuu93: DEBUG
-
+prescriptions:
+  user: 'dev'
+  password: 'pass'
 
 ---
 
@@ -58,3 +59,6 @@ logging:
     org.springframework.web: ERROR
     org.hibernate: ERROR
     pl.michuu93: ERROR
+prescriptions:
+  user: ${APP_USER}
+  password: ${APP_PASSWORD}

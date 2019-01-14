@@ -1,18 +1,12 @@
 import {Component, Inject, LOCALE_ID, OnDestroy, OnInit} from '@angular/core';
-import {
-    MatDialog,
-    MatDialogConfig,
-    MatDialogRef,
-    MatSnackBar,
-    MatTableDataSource
-} from "@angular/material";
+import {MatDialog, MatDialogConfig, MatDialogRef, MatSnackBar, MatTableDataSource} from "@angular/material";
 import {PatientsListComponent} from "../../patients/patients-list/patients-list.component";
 import {DrugsListComponent} from "../../drugs/drugs-list/drugs-list.component";
 import {PatientsService} from "../../patients/patients.service";
 import {Subscription} from "rxjs";
 import {DrugsService} from "../../drugs/drugs.service";
 import {Drug} from "../../drugs/model/drug.model";
-import {Prescription, PrescriptionType, PrescriptionPermissions} from "../model/prescription-model";
+import {Prescription, PrescriptionPermissions, PrescriptionType} from "../model/prescription-model";
 import {PrescriptionsService} from "../prescriptions.service";
 import {Refund} from "../../drugs/model/refund.model";
 import {PrescriptionPreviewComponent} from "../prescription-preview/prescription-preview.component";
@@ -54,29 +48,29 @@ export class PrescriptionsEditComponent implements OnInit, OnDestroy {
         this.dialogConfig.height = '90vh';
         this.dialogConfig.width = '100vw';
 
-        this.selectPatientSubscription = this.patientsService.patientEdited.subscribe(
+        this.selectPatientSubscription = this.patientsService.patientEdited$.subscribe(
             patient => {
                 this.editedPrescription.patient = patient;
                 this.patientDialog.close();
             }
         );
-        this.selectDrugSubscription = this.drugsService.drugSelected.subscribe(
+        this.selectDrugSubscription = this.drugsService.drugSelected$.subscribe(
             drug => {
                 this.drugsMap.set(drug.bl7, drug);
                 this.drugDialog.close();
             }
         );
-        this.editedPrescriptionSubscription = this.prescriptionsService.prescriptionsEdited.subscribe(
+        this.editedPrescriptionSubscription = this.prescriptionsService.prescriptionsEdited$.subscribe(
             prescription => {
                 this.editedPrescription = prescription;
-                this.datePicker = prescription.dateFromDay;
+                this.datePicker = new Date(Date.parse(prescription.dateFromDay));
                 this.drugsMap.clear();
                 prescription.drugs.forEach(drug => {
                     this.drugsMap.set(drug.bl7, drug);
                 });
             }
         );
-        this.editModeSubscription = this.prescriptionsService.editMode.subscribe(
+        this.editModeSubscription = this.prescriptionsService.editMode$.subscribe(
             (editMode: boolean) => {
                 this.editMode = editMode;
             }
@@ -109,9 +103,9 @@ export class PrescriptionsEditComponent implements OnInit, OnDestroy {
             .subscribe(
                 (response: Prescription) => {
                     console.log("Save prescription: " + JSON.stringify(response));
-                    this.prescriptionsService.prescriptionsChange.emit();
-                    this.prescriptionsService.prescriptionsEdited.emit(response);
-                    this.prescriptionsService.editMode.emit(true);
+                    this.prescriptionsService.refreshPrescriptions();
+                    this.prescriptionsService.setEditedPrescription(response);
+                    this.prescriptionsService.setEditMode(true);
                     this.snackBar.open('Prescription saved!');
                 },
                 error => {
@@ -129,7 +123,7 @@ export class PrescriptionsEditComponent implements OnInit, OnDestroy {
     reset() {
         this.editedPrescription = new Prescription();
         this.drugsMap.clear();
-        this.prescriptionsService.editMode.emit(false);
+        this.prescriptionsService.setEditMode(false);
     }
 
     ngOnDestroy(): void {

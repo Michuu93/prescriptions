@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {DrugsUploaderService} from "../drugs/drugs-uploader/drugs-uploader.service";
 import {FileUploader} from "ng2-file-upload";
 
@@ -9,14 +9,10 @@ import {FileUploader} from "ng2-file-upload";
     providers: [DrugsUploaderService],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
     uploader: FileUploader;
 
     constructor(private drugsUploaderService: DrugsUploaderService) {
         this.uploader = drugsUploaderService.uploader;
     }
-
-    ngOnInit() {
-    }
-
 }

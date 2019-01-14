@@ -27,7 +27,7 @@ export class PrescriptionsListComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.getPrescriptionsPage(this.pageIndex, this.pageSize);
-        this.prescriptionsChangeSubscription = this.prescriptionsService.prescriptionsChange.subscribe(() => {
+        this.prescriptionsChangeSubscription = this.prescriptionsService.prescriptionsChange$.subscribe(() => {
             this.getPrescriptionsPage(this.pageIndex, this.pageSize);
         });
     }
@@ -54,12 +54,11 @@ export class PrescriptionsListComponent implements OnInit, OnDestroy {
     }
 
     editPrescription(prescription: Prescription) {
-        this.prescriptionsService.prescriptionsEdited.emit(prescription);
-        this.prescriptionsService.editMode.emit(true);
+        this.prescriptionsService.setEditedPrescription(prescription);
+        this.prescriptionsService.setEditMode(true);
     }
 
     ngOnDestroy(): void {
         this.prescriptionsChangeSubscription.unsubscribe();
     }
-
 }

@@ -29,13 +29,13 @@ export class PatientsEditComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.editedPatientSubscription = this.patientsService.patientEdited.subscribe(
+        this.editedPatientSubscription = this.patientsService.patientEdited$.subscribe(
             patient => {
                 this.editedPatient = patient;
-                this.datePicker = patient.birthdate;
+                this.datePicker = new Date(Date.parse(patient.birthdate));
             }
         );
-        this.editModeSubscription = this.patientsService.editMode.subscribe(
+        this.editModeSubscription = this.patientsService.editMode$.subscribe(
             (editMode: boolean) => {
                 this.editMode = editMode;
             }
@@ -51,7 +51,7 @@ export class PatientsEditComponent implements OnInit, OnDestroy {
             .subscribe(
                 (response: Patient) => {
                     console.log("Save patient: " + JSON.stringify(response));
-                    this.patientsService.patientsChange.emit();
+                    this.patientsService.refreshPatients();
                     this.snackBar.open('Patient saved!');
                     this.resetForm();
                 },
@@ -66,7 +66,7 @@ export class PatientsEditComponent implements OnInit, OnDestroy {
             .subscribe(
                 () => {
                     console.log("Delete patient: " + JSON.stringify(this.editedPatient));
-                    this.patientsService.patientsChange.emit();
+                    this.patientsService.refreshPatients();
                     this.snackBar.open('Patient deleted!');
                     this.resetForm();
                 },
@@ -78,7 +78,7 @@ export class PatientsEditComponent implements OnInit, OnDestroy {
     }
 
     resetForm() {
-        this.patientsService.editMode.emit(false);
+        this.patientsService.setEditMode(false);
         this.editedPatient = new Patient();
         this.editedPatient.idType = this.idTypes[0].value;
         this.patientForm.resetForm();

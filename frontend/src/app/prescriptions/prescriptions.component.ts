@@ -5,7 +5,7 @@ import {PrescriptionsService} from "./prescriptions.service";
 @Component({
     selector: 'app-prescriptions',
     templateUrl: './prescriptions.component.html',
-    styleUrls: ['./prescriptions.component.scss']
+    styles: []
 })
 export class PrescriptionsComponent implements OnInit, OnDestroy {
     selectedTab;
@@ -16,7 +16,7 @@ export class PrescriptionsComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.editModeSubscription = this.prescriptionsService.editMode.subscribe(
+        this.editModeSubscription = this.prescriptionsService.editMode$.subscribe(
             (editMode: boolean) => {
                 if (editMode) {
                     this.selectedTab = 1;

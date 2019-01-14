@@ -21,6 +21,32 @@ export class ConfigurationComponent implements OnInit {
         this.getDoctorData();
     }
 
+    saveOfficeData() {
+        this.officeService.saveOfficeData(this.officeData)
+            .subscribe(
+                (response: OfficeData) => {
+                    console.log("Save officeData: " + JSON.stringify(response));
+                    this.snackBar.open('Office Data saved!');
+                },
+                error => {
+                    console.log("Error when saving officeData: " + JSON.stringify(error));
+                    this.snackBar.open('Error when saving Office Data!');
+                });
+    }
+
+    saveDoctorData() {
+        this.officeService.saveDoctorData(this.doctorData)
+            .subscribe(
+                (response: DoctorData) => {
+                    console.log("Save doctorData: " + JSON.stringify(response));
+                    this.snackBar.open('Doctor Data saved!');
+                },
+                error => {
+                    console.log("Error when saving Doctor Data: " + JSON.stringify(error));
+                    this.snackBar.open('Error when saving Doctor Data!');
+                });
+    }
+
     private getOfficeData() {
         this.officeService.getOfficeData()
             .subscribe(
@@ -35,19 +61,6 @@ export class ConfigurationComponent implements OnInit {
                 });
     }
 
-    saveOfficeData() {
-        this.officeService.saveOfficeData(this.officeData)
-            .subscribe(
-                (response: OfficeData) => {
-                    console.log("Save officeData: " + JSON.stringify(response));
-                    this.snackBar.open('Office Data saved!');
-                },
-                error => {
-                    console.log("Error when saving officeData: " + JSON.stringify(error));
-                    this.snackBar.open('Error when saving Office Data!');
-                });
-    }
-
     private getDoctorData() {
         this.officeService.getDoctorData()
             .subscribe(
@@ -59,19 +72,6 @@ export class ConfigurationComponent implements OnInit {
                         console.log(error.status + "Error when getting Doctor Data: " + JSON.stringify(error));
                         this.snackBar.open('Error when getting Doctor Data!');
                     }
-                });
-    }
-
-    saveDoctorData() {
-        this.officeService.saveDoctorData(this.doctorData)
-            .subscribe(
-                (response: DoctorData) => {
-                    console.log("Save doctorData: " + JSON.stringify(response));
-                    this.snackBar.open('Doctor Data saved!');
-                },
-                error => {
-                    console.log("Error when saving Doctor Data: " + JSON.stringify(error));
-                    this.snackBar.open('Error when saving Doctor Data!');
                 });
     }
 }

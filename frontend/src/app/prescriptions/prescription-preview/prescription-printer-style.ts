@@ -11,10 +11,19 @@ export class PrescriptionPrinterStyle {
   border-bottom: black solid 1px;
 }
 .prescription-body .prescription-header .header-left {
+  position: relative;
   float: left;
   height: calc(100% - 1mm);
   width: calc(50% - 1mm);
   margin: 1mm 0 0 1mm;
+}
+.prescription-body .prescription-header .header-left .header-left-title {
+  font-weight: bold;
+}
+.prescription-body .prescription-header .header-left .header-left-footer {
+  position: absolute;
+  bottom: 0;
+  font-size: 8pt;
 }
 .prescription-body .prescription-header .header-right {
   float: right;
@@ -23,6 +32,9 @@ export class PrescriptionPrinterStyle {
   width: calc(50% - 1mm);
   text-align: right;
   margin: 1mm 1mm 0 0;
+}
+.prescription-body .prescription-header .header-right .header-right-title {
+  font-weight: bold;
 }
 .prescription-body .prescription-patient {
   height: 25%;
@@ -189,6 +201,13 @@ export class PrescriptionPrinterStyle {
   float: right;
   width: 70%;
   height: 100%;
+  text-align: center;
+}
+.prescription-body .prescription-footer .footer-right .footer-right-title {
+  font-size: 8pt;
+}
+.prescription-body .prescription-footer .footer-right .footer-right-value-license {
+  font-size: 8pt;
 }
 
 

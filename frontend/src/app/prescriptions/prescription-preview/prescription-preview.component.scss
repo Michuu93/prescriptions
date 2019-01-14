@@ -23,10 +23,19 @@ $border-dashed: black dashed 1px;
     height: 15%;
     border-bottom: $border;
     .header-left {
+      position: relative;
       float: left;
       height: calc(100% - 1mm);
       width: calc(50% - 1mm);
       margin: 1mm 0 0 1mm;
+      .header-left-title {
+        font-weight: bold;
+      }
+      .header-left-footer {
+        position: absolute;
+        bottom: 0;
+        font-size: 8pt;
+      }
     }
     .header-right {
       float: right;
@@ -35,6 +44,9 @@ $border-dashed: black dashed 1px;
       width: calc(50% - 1mm);
       text-align: right;
       margin: 1mm 1mm 0 0;
+      .header-right-title {
+        font-weight: bold;
+      }
     }
   }
   .prescription-patient {
@@ -202,6 +214,13 @@ $border-dashed: black dashed 1px;
       float: right;
       width: 70%;
       height: 100%;
+      text-align: center;
+      .footer-right-title {
+        font-size: 8pt;
+      }
+      .footer-right-value-license {
+        font-size: 8pt;
+      }
     }
   }
 }

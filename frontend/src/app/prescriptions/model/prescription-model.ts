@@ -1,5 +1,7 @@
 import {Patient} from "../../patients/model/patient.model";
 import {Drug} from "../../drugs/model/drug.model";
+import {DoctorData} from "../../configuration/model/doctor.model";
+import {OfficeData} from "../../configuration/model/office.model";
 
 export class Prescription {
     public id: string;
@@ -10,6 +12,8 @@ export class Prescription {
     public drugs: Drug[];
     public date: string;
     public dateFromDay: string;
+    public doctor: DoctorData;
+    public officeData: OfficeData;
 }
 
 export enum PrescriptionPermissions {
